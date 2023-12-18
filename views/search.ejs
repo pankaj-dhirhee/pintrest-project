@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page title</title>
+  <!-- Linking to its css -->
+  <link rel="stylesheet" href="stylesheets/search.css">
+</head>
+<body>
+<main id="search-ka-main-container">
+	<!------------------------------------------->
+	<!--          SEARCH BAR SECTION           -->
+	<!------------------------------------------->
+	<div class="main-container-of-search-box">
+			<div id="search-box">
+			   <input type="text" id="myInput" placeholder="Search for names.." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+			   <img src="images/search.png" id="search-btn"/>
+			</div>
+	</div>
+	<!--=======================================-->
+
+
+
+	<!------------------------------------------->
+	<!--       SUGGESTED SEARCH SECTION        -->
+	<!------------------------------------------->
+	<div id="suggested-search-container">
+		  <div id="container-for-delete-all-history-btn">
+		     <span>History</span>
+		     <div id="delete-all-search-history-btn">
+		       <img src="images/black-delete-btn.png" onclick="deleteAllSearchHistory()"/>
+		     </div>
+		  </div>
+		  <div class="suggestions">
+		    <!-- here search history will be displayed by Javascript -->	
+		  </div>
+	</div>
+	<!--=======================================-->
+</main>
+	
+
+
+<!-- Linking to axios cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Linking to it's search javascript file -->
+<script src="javascripts/search.js"></script>
+</dody>
+</html>

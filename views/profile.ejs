@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page title</title>
+  <!-- Linking to navbar css -->
+  <link rel="stylesheet" href="../stylesheets/navbar.css">
+  <!-- Linking to it's css -->
+  <link rel="stylesheet" href="../stylesheets/profile.css">
+  <!-- Linking to feed css -->
+  <link rel="stylesheet" href="../stylesheets/feed.css">
+</head>
+<body>
+<main class="main-container-of-page">
+	<!------------------------------------------->
+  <!--            NAVBAR SECTION             -->
+  <!------------------------------------------->
+  <nav>
+  	<div class="left">
+  		 <span class="name-of-website">
+  			 Pinterest
+  		 </span>
+  	</div>
+  	<div class="right">
+  		<div class="container-of-links">
+	  		 <span>
+	  		 	 <a href="/feed">
+	  		 	 	  Feed
+	  		 	 </a>
+	  		 </span>
+	  		 <span>
+	  		 	 <a href="/profile">
+	  		 	 	  Profile
+	  		 	 </a>
+	  		 </span>
+  		</div>
+  		 
+  		 <div class="nav-container-of-buttons">
+		  	 <button class="square-button" id="search-button">
+			  	 	 <a href="/search">
+			  	 	   <img src="images/search.png"/>
+			  	 	 </a>
+		  	 </button>
+		 		 <button class="square-button" id="logout-button">
+			 	 	 	 <a href="/logout">
+			 	 	     Logout
+			 	 	   </a>
+		 		 </button>	
+  		 </div>
+  	</div>
+  </nav>
+  <!--=======================================-->
+  
+  
+  
+  <!-- Hidden form to uploiad profile image -->
+  <form class="form-profile-image" method="post" hidden action="/fileupload/<%= user.profileImage %>" enctype="multipart/form-data">
+  	<input type="file" id="input-for-profile-image" name="image"/>
+  </form>
+  <!------------------------------------------->
+  <!--           PROFILE SECTION             -->
+  <!------------------------------------------->
+  <div class="profile-section">
+	  <div class="card">
+			  <div class="profile-picture">
+			  	<div class="image-box">
+			  	<img src="/images/uploads/<%= user.profileImage %>"/>	
+			  	</div>
+					<div id="up-pen">
+						<img src="images/pencil.png" class="upload-img" id="<%= user.profileImage %>"/>
+					</div>
+				</div>
+				
+				<p class="name">
+					<%= user.fullname %>
+				</p>
+				<p class="username">
+					@<%= user.username %>
+				</p>
+				
+				<div class="container-of-buttons">
+						<button class="button">
+							<a href="/logout">
+							  Logout	here
+							</a>
+						</button>
+						<button class="button" id="upload-image">
+							  Add a post
+						</button>
+				</div>
+   </div>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ 
+ <!------------------------------------------->
+ <!--            SOME OPTIONS               -->
+ <!------------------------------------------->
+ <div class="options-container">
+  <div class="wrapper">
+ 	 	  <div class="option" id="posts-option">
+ 	    	<span> Posts </span>
+   	  </div>
+ 	    <div class="option" id="saved-option">
+ 	      <span> Saved </span>
+    	</div>
+  </div>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ 
+ <!------------------------------------------->
+ <!--        YOUR IMAGES SECTION            -->
+ <!------------------------------------------->
+	<div class="image-container">
+		   <div class="box">
+	       <a href="/show">
+	           <img src="/images/uploads/<%= user.posts[0]?.image %>" />
+	       </a>
+	       <div class="caption">
+	       	<div class="left">
+	       		<p>Your uplods</p>
+	       		<span> <%= user.posts.length %> pins </span>
+	       	</div>
+	       </div>
+	     </div> 	 
+	</div>
+	<!--=======================================-->
+	
+	
+	
+	<!------------------------------------------->
+	<!--          DELETE IMAGE BUTTONS         -->
+	<!------------------------------------------->
+	<!-- Delete sppecific video from history btn -->
+	<div class="delete-main-con" id="delete-box-for-three-dot">
+	   <button class="delete-btn">
+			   <a href="" class="anchor-inside-delete-btn">
+			   	  <div class="delete-img-text-container">	 
+			   	 	  <img src="images/delete.png" class="delete-img"/>
+			        <span>Delete this image</span>
+		        </div>
+			   </a>
+			   <div class="close-delete-btn">
+			     <img src="images/cut-icon.png"/>
+			   </div>
+	   </button>
+	</div>
+	<!--=======================================-->
+	
+	
+	
+<!------------------------------------------->
+  <!--     FOOTER NAVIGATION SECTION         -->
+  <!------------------------------------------->
+	<footer>
+	  <div class="right">
+		    <button class="button-in-footer home-button">
+		    	<a href="/feed">
+		    		<img src="images/home.png"/>
+		    	</a>
+		    </button>
+		    <button class="button-in-footer bell-button">
+		    	<a href="/search">
+		    		<img src="images/search.png"/>
+		    	</a>
+		    </button>
+		    <button class="button-in-footer message-button">
+		    	<a href="/inbox">
+		    		<img src="images/message.png"/>
+		    	</a>
+		    </button>
+		    <button class="profile">
+		    	<a href="/profile">
+		    		<img src="images/profile.png"/>
+		    	</a>
+		    </button>
+	  </div>
+	</footer>
+	<!--=======================================-->
+</main>
+
+
+
+<!------------------------------------------->
+<!--          UPLOAD IMAGE CARD            -->
+<!------------------------------------------->
+<div class="upload-sec">
+   <form class="uplod-image-form" action="/upload" method="post" enctype="multipart/form-data">
+     <div class="top">
+       <span>Upload Image</span>
+       <span class="close">
+         <img src="../images/close.png"/>
+       </span>
+     </div>
+      <div class="file-input-div">
+        <input type="file" name="file">
+        <span> Click here to upload image </span>
+      </div>
+      <div class="box-for-text-input">
+        <input type="text" name="filecaption" placeholder="Caption for image" id="image-text">
+      </div>
+      <div class="box-for-text-input">
+        <input type="text" name="description" placeholder="Description for imaqge" id="image-text">
+      </div>
+      <div class="submit-container">
+        <input value="Submit" type="submit" class="submit" id="upload-submit" />
+        <span class="loader-container">
+          <div class="loader"></div>
+        </span>
+      </div>
+   </form>
+ </div>
+ <!--=======================================-->
+ 
+ 
+
+<!-- Linking to this page's javascript -->
+<script src="../javascripts/profile.js"></script>
+<!-- Linking to feed javascript -->
+<script src="../javascripts/feed.js"></script>
+<!-- Linking to navbar javascript -->
+<script src="../javascripts/navbar.js"></script>
+<!-- Used to show console in browser -->
+<script src="node_modules/eruda/eruda.js"></script>
+</dody>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page title</title>
+  <!-- Linking to sign in css -->
+  <link rel="stylesheet" href="../stylesheets/sign_in.css">
+  <!-- Linking to it's css -->
+  <link rel="stylesheet" href="../stylesheets/login.css">
+</head>
+<body>
+ <!------------------------------------------->
+ <!--             LOG IN FORM               -->
+ <!------------------------------------------->
+ 
+ <!-- If email or password is wrong then show error message -->
+ <% if(error.length > 0){ %>
+   <p class="error">
+     <%= error %>
+   </p>
+ <%  } %>
+ 
+ 
+ <!-- Designing form -->
+ <div class="content">
+   <div class="flex-div">
+      <div class="name-content">
+         <p>login account to see more</p>         
+      </div>
+      
+      <!-- Form is starting -->
+      <form action="/login" method="post">
+         <input type="text" name="username" placeholder="Username"/>
+         <input type="password" placeholder="Password" name="password" required>
+         <!-- Some buttons -->
+         <input type="submit" value="Login Account" class="common-input"/>
+         <button class="common-button">
+	          <a href="/">
+	            	Create a new account	
+	          </a>
+         </button>
+         <!-- Link for forgot password -->
+         <div class="forgot-password-container">
+             <a href="#">Forgot Password ?</a>
+         </div>
+         <hr>
+      </form>
+   </div>
+ </div>
+ <!--=======================================-->
+  
+</body>
+</html>

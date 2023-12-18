@@ -1,0 +1,20 @@
+.common-button a{
+	color:  whitesmoke;
+}
+/*==========================================*/
+
+
+
+/*-------------------------------------------*/
+/*           MEDIA QUERY SECTION             */
+/*-------------------------------------------*/
+@media(max-height: 400px){
+	.name-content{
+		display: none;
+	}
+	form{
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+}
+/*==========================================*/

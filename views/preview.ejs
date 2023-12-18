@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page title</title>
+  <!-- Linking to navbar css -->
+  <link rel="stylesheet" href="../stylesheets/navbar.css">
+  <!-- Linking to its css -->
+  <link rel="stylesheet" href="/stylesheets/preview-page.css">
+</head>
+<body>
+<main class="main-container-of-page">
+	<!------------------------------------------->
+  <!--            NAVBAR SECTION             -->
+  <!------------------------------------------->
+  <nav>
+  	<div class="left">
+  		 <span class="name-of-website">
+  			 Pinterest
+  		 </span>
+  	</div>
+  	<div class="right">
+  		<div class="container-of-links">
+	  		 <span>
+	  		 	 <a href="/feed">
+	  		 	 	  Feed
+	  		 	 </a>
+	  		 </span>
+	  		 <span>
+	  		 	 <a href="/profile">
+	  		 	 	  Profile
+	  		 	 </a>
+	  		 </span>
+  		</div>
+  		 
+  		 <div class="nav-container-of-buttons">
+		  	 <button class="square-button" id="search-button">
+			  	 	 <a href="/search">
+			  	 	   <img src="/images/search.png"/>
+			  	 	 </a>
+		  	 </button>
+		 		 <button class="square-button" id="logout-button">
+			 	 	 	 <a href="/logout">
+			 	 	     Logout
+			 	 	   </a>
+		 		 </button>	
+  		 </div>
+  	</div>
+  </nav>
+  <!--=======================================-->
+  
+
+  
+  <!------------------------------------------->
+  <!--         CONTENT OF THIS PAGE          -->
+  <!------------------------------------------->
+  <div class="box-of-content">
+    <div class="left">
+				<div id="content-img-container">
+				  <img src="/images/uploads/<%= post.image %>"/>
+				</div>
+					
+			  <p class="image-name">
+			    <%= post.imageText %>
+			  </p>
+		
+		    <!-- Buttons section ex- like, dislie -->
+		    <div id="button-container">
+					 <!-- Like, dislike button -->
+					 <div id="like-dislike-box" class="btn-box">
+					 	   <img src="/images/like-btn.png" class="<%= liked %>" id="like" id="dislike" data-postid="<%= post._id %>" data-userid="<%= user._id %>"/>
+					     <span id="likeSpan"><%= post.likes %></span>
+						   <hr>
+						   <img src="/images/like-btn.png" class="<%= disliked %>" id="dislike" data-postid="<%= post._id %>" data-userid="<%= user._id %>"/>
+					 </div>
+				
+					 <!-- Save button -->
+					 <div id="save-box" class="btn-box">
+					     <img src="/images/save.png"/>
+					     <span>save</span>
+					 </div>
+				 
+					 <!-- Share button -->
+					 <div id="share-box" class="btn-box">
+					     <a href="/download/<%= post.image %>">
+							   <img src="/images/download-2-white.png"/>
+							   <span>Download</span>
+							 </a>
+					 </div>
+		    </div>
+    </div> <!-- Left -->
+		
+		
+	  <div class="right">
+		  <div class="wrapper">
+        <div id="comment-container">
+		  		
+           <!--this is a default showing comment box-->
+           <div id="comment-box">
+           <div class="commentNumber">Comments 11</div>
+		           <!--default comment with profile image-->
+		           <div id="dummy-comment">
+				           <img src="/images/profile.png"></img>
+				           <span> 
+				             Hay bro subcribe this channel
+				           </span>
+               </div>
+           </div><!--comment-box-->
+ 
+ 
+           <div class="pc-comment-box">
+		           <div class="commentNumber">Comments 11</div>
+		           
+		            <!-- Post comment -->
+							  <div class="post-comment">
+							    <img src="/images/profile.png"/>
+							    <input type="text" placeholder="Post your comment">
+							  </div>
+							  
+		            <!-- here comment boxes will append -->
+		            <div class="container-of-boxes-of-comment">
+		            <!-- comments will be displayed here by javascript -->  
+		            </div>
+            </div><!-- pc-comment-box -->
+        </div><!--comment-container-->
+		  	
+		  	<!-- Description for our preview image -->
+		  	<h> Description </h>
+		  	<p class="description">
+		  		<%= post.description %>
+		  	</p>
+		  </div>
+   </div>
+  </div>	
+  <!--=======================================-->
+
+
+
+  <!------------------------------------------->
+  <!--     FOOTER NAVIGATION SECTION         -->
+  <!------------------------------------------->
+  <footer>
+	  <div class="right">
+		    <button class="button-in-footer home-button">
+		    	<a href="/feed">
+		    		<img src="/images/home.png"/>
+		    	</a>
+		    </button>
+ 	      <button class="button-in-footer bell-button">
+		    	<a href="/search">
+		    		<img src="/images/search.png"/>
+		    	</a>
+		    </button>
+		    <button class="button-in-footer message-button">
+		    	<a href="/inbox">
+		    		<img src="/images/message.png"/>
+		    	</a>
+		    </button>
+		    <button class="profile">
+		    	<a href="/profile">
+		    		<img src="/images/profile.png"/>
+		    	</a>
+		    </button>
+	  </div>
+  </footer>
+	<!--=======================================-->
+</main>
+
+
+
+<!-- Linking to axios cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Linking to its javascript -->
+<script src="node_modules/eruda/eruda.js"></script>
+<!-- Automatically show eruda console -->
+<script src="/javascripts/eruda-console.js"></script>
+<!-- Linking to this page's javascript file -->
+<script src="/javascripts/preview.js"></script>
+</body>
+</html>

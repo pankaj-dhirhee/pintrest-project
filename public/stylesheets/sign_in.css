@@ -1,0 +1,278 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  font-family: "Poppins", sans-serif;
+  background: #f2f4f7;
+  text-align: center;
+  width: 100vw;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vh 0vw;
+  flex-direction: column;
+}
+
+
+/*-------------------------------------------*/
+/*                LOG IN FORM                */
+/*-------------------------------------------*/
+/* Error message when email or password is incorrect */
+.error{
+	font-weight: 500;
+	color: red;
+	text-transform: capitalize;
+	margin: 7px 0;
+	font-size: 1.6rem;
+}
+
+/* Container of .name-content & form */
+.flex-div{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* Contains heading & paragraph */
+.name-content{
+  margin-right: 7rem;
+}
+
+.name-content img{
+  height: 47px;
+  margin-bottom: 0.8rem;
+}
+
+/* h1, contains text [ facebook ] */
+.name-content .logo{
+  font-size: 3.5rem;
+  color: #1877f2;
+}
+
+/* text [ Connect with friends and the world... ] */
+.name-content p{
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+/* Form section */
+form{
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 2rem;
+  width: 530px;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+}
+
+form input{
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+  height: 37px;
+  border-radius: 5px;
+  border: 1px solid black;
+  outline: none;
+}
+
+form .common-input{
+  outline: none;
+  border: none;
+  background: #d3002b;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #e5e5e5;
+  margin-bottom: 0.4rem;
+}
+
+form .common-input:hover {
+  opacity: 0.8;
+}
+
+form .span-or{
+  margin-bottom: 0.4rem;
+}
+
+form .common-button{
+  border: none;
+  background: gray;
+  font-size: 1.6rem;
+  height: 37px;
+  color: whitesmoke;
+  border-radius: 5px;
+}
+
+form .forgot-password-container{
+  font-size: 1rem;
+  margin-top: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  height: 20px;
+}
+
+form a{
+  text-decoration: none;
+  color: #1877f2;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form hr {
+  background: #f7f7f7;
+  margin: 1rem;
+}
+
+.create-account a{
+	color:  #e5e5e5;
+}
+
+form .create-account:hover {
+  background: #03ad06;
+  cursor: pointer;
+}
+/*===========================================*/
+
+
+
+/*-------------------------------------------*/
+/*           MEDIA QUERY SECTION             */
+/*-------------------------------------------*/
+@media (max-width: 500px) {
+  html {
+    font-size: 60%;
+  }
+  
+  .name-content {
+    margin: 0;
+    text-align: center;
+  }
+  
+  form {
+    width: 300px;
+    height: fit-content;
+  }
+
+  form input {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  form .common-button {
+    font-size: 1.6rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  form a {
+    font-size: 1.5rem;
+  }
+
+  form .create-account {
+    font-size: 1.5rem;
+  }
+
+  .flex-div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+@media (min-width: 501px) and (max-width: 768px) {
+  .name-content {
+    margin: 0;
+    text-align: center;
+  }
+  
+  html{
+   	font-size: 60%;
+  }
+  
+  form {
+    width: 310px;
+    height: fit-content;
+    margin-bottom: 6px;
+  }
+
+  form input {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  form .common-button {
+    font-size: 1.5rem;
+  }
+
+  form a {
+    font-size: 1.5rem;
+  }
+
+  form .create-account {
+    font-size: 1.5rem;
+  }
+
+  .flex-div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  html {
+    font-size: 60%;
+  }
+
+  .name-content {
+    margin: 0;
+    text-align: center;
+  }
+
+  form {
+    width: 300px;
+    height: fit-content;
+  }
+
+  form input {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  form .login {
+    font-size: 1.5rem;
+  }
+
+  form a {
+    font-size: 1.5rem;
+  }
+
+  form .create-account {
+    font-size: 1.5rem;
+  }
+
+  .flex-div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+}
+
+
+@media (orientation: landscape) and (max-height: 500px) {
+  form{
+    margin-bottom: 5px;
+  }
+}
+/*===========================================*/

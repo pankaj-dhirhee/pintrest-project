@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page title</title>
+  <!-- Linking to navbar css -->
+  <link rel="stylesheet" href="stylesheets/navbar.css">
+  <!-- Linking to it's css -->
+  <link rel="stylesheet" href="stylesheets/profile.css">
+  <!-- Linking to feed css -->
+  <link rel="stylesheet" href="stylesheets/feed.css">
+  <!-- Linking to its css -->
+  <link rel="stylesheet" href="stylesheets/showImage.css">
+</head>
+<body>
+<main class="main-container-of-page">
+	<!------------------------------------------->
+  <!--            NAVBAR SECTION             -->
+  <!------------------------------------------->
+  <nav>
+  	<div class="left">
+  		 <span class="name-of-website">
+  			 Pinterest
+  		 </span>
+  	</div>
+  	<div class="right">
+  		<div class="container-of-links">
+	  		 <span>
+	  		 	 <a href="/feed">
+	  		 	 	  Feed
+	  		 	 </a>
+	  		 </span>
+	  		 <span>
+	  		 	 <a href="/profile">
+	  		 	 	  Profile
+	  		 	 </a>
+	  		 </span>	
+  		</div>
+  		 
+  		 <div class="nav-container-of-buttons">
+		  	 	<button class="square-button" id="search-button">
+		  	 	 <img src="images/search.png"/>
+		  	 </button>
+		 		 <button class="square-button" id="logout-button">
+		 		   Logout
+		 		 </button>	
+  		 </div>
+  	</div>
+ </nav>
+ <!--=======================================-->
+ 
+ 
+ 
+ <!------------------------------------------->
+ <!--        YOUR IMAGES SECTION            -->
+ <!------------------------------------------->
+	<div class="image-container">
+		 <% user.posts.forEach(function(post){ %>
+		   <div class="box">
+	       <a href="">
+	           <img src="images/uploads/<%= post.image %>" />
+	       </a>
+	       <div class="caption">
+	       	<div class="left">
+	       		<span><%= post.imageText %></span>
+	       	</div>
+	        <div class="right dot" id="<%= post.image %>">
+	        	  <img src="images/three-dots.png" id="<%= post.image %>" class="dot"/>
+	        </div>
+	       </div>
+	     </div> 
+		 <% }) %>
+	</div>
+	<!--=======================================-->
+	
+	
+
+	<!------------------------------------------->
+	<!--          DELETE IMAGES BUTTON         -->
+	<!------------------------------------------->
+	<!-- Delete sppecific video from history btn -->
+	<div class="delete-main-con" id="delete-box-for-three-dot">
+	   <button class="delete-btn">
+			   <a href="" class="anchor-inside-delete-btn">
+			      <div class="delete-img-text-container">	 
+			   	 	  <img src="images/delete.png" class="delete-img"/>
+			        <span>Delete this image</span>
+		        </div>
+			   </a>
+			   <div class="close-delete-btn">
+			     	  <img src="images/cut-icon.png"/>
+			   </div>
+	   </button>
+	</div>
+	<!--=======================================-->
+	
+	
+	
+	<!------------------------------------------->
+  <!--     FOOTER NAVIGATION SECTION         -->
+  <!------------------------------------------->
+	<footer>
+	  <div class="right">
+		    <button class="button-in-footer home-button">
+		    	<a href="/feed">
+		    		<img src="images/home.png"/>
+		    	</a>
+		    </button>
+		    <button class="button-in-footer bell-button">
+		    	<a href="/search">
+		    		<img src="images/search.png"/>
+		    	</a>
+		    </button>
+		    <button class="button-in-footer message-button">
+		    	<a href="/inbox">
+		    		<img src="images/message.png"/>
+		    	</a>
+		    </button>
+		    <button class="profile">
+		    	<a href="/profile">
+		    		<img src="images/profile.png"/>
+		    	</a>
+		    </button>
+	  </div>
+	</footer>
+	<!--=======================================-->
+</main>
+ 
+ 
+
+<!-- Linking to this page's javascript -->
+<script src="../javascripts/feed.js"></script>
+<!-- Used to dispaly browser consoole -->
+<script src="node_modules/eruda/eruda.js"></script>
+<!-- Linking to navbar javascript -->
+<script src="javascripts/navbar.js"></script>
+</dody>
+</html>
