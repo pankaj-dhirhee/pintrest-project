@@ -1,0 +1,63 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body{
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.container-of-verify-email-card{
+  width: 60vw;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#verify-email-heading{
+  display: block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+
+#small-paragraph{
+  display: block;
+  font-size: 1.4rem;
+  margin-bottom: 0.9rem;
+}
+
+#container-for-redirecting-to-site{
+  margin: 0.7rem 0;
+}
+
+.redirect-to-profile-page-anchor{
+  text-decoration: none;
+  font-size: 1.6rem;
+  letter-spacing: 1.5px;
+  color: #00ce2c;
+}
+
+#copyright{
+  display: block;
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+
+
+/* Media queries */
+@media(max-width: 450px){
+ .container-of-verify-email-card{
+   width: 97vw;
+ }
+}

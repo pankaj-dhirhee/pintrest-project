@@ -97,7 +97,7 @@ body{
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  background: #e0e0e0;
+  background: #9e9ece;
   border-radius: 20px;
   box-sizing: border-box;
   padding: 4px 8px;
@@ -147,6 +147,13 @@ body{
   margin: 8px;
 }
 
+#save-box a{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 /*image of save btn box*/
 #save-box img{
   margin-right: 6px;
@@ -164,11 +171,128 @@ body{
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  color: black;
 }
 
 /*image of share box*/
 #share-box img{
   margin-right: 6px;
+}
+/*==========================================*/
+
+
+
+/*-------------------------------------------*/
+/*        MODAL TO SAVE IMAGES TO BOARD      */
+/*-------------------------------------------*/
+.save-image-modal{
+	position: fixed;
+	width: 98vw;
+	left: 1vw;
+	bottom: -100%;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
+	background: black;
+	display: flex;
+	padding: 11px;
+	justify-content: center;
+	color: whitesmoke;
+	max-height: calc(100svh - 60px);
+	overflow-y: auto;
+	display: none;
+}
+
+.save-image-modal .wrapper{
+	height: 100%;
+	width: 100%;
+}
+
+.navbar-of-save-modal{
+	height: 20px;
+	display: flex;
+	justify-content: space-between;
+  font-size: 1.2rem;
+  padding: 5px 0px
+  align-items: center;
+  margin-bottom: 13px;
+}
+
+.navbar-of-save-modal img{
+	height: 100%
+}
+
+.save-image-modal .wrapper .boards{
+	width: 100%;
+}
+
+.save-image-modal .wrapper .box{
+	height: 30px;
+	width: 100%;
+	padding: 5px 8px;
+	margin-bottom: 10px;
+	border: 0.5px solid whitesmoke;
+	border-radius: 5px;
+	background: #be5a40;
+	display: flex;
+	align-items: center;
+}
+
+.save-image-modal .wrapper .box p{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.loader-inside-board-boxes{
+	position: static;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	display: none;
+}
+
+.loader-inside-board-boxes .loader{
+  height: 100%;
+	border-width: 3px;
+}
+
+.create-new-board-container{
+	width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-column-gap: 7px; 
+}
+
+.create-new-board-container input{
+	font-size: 1rem;
+	padding: 4px 7px;
+	background: transparent;
+	color: whitesmoke;
+	border: 1px solid whitesmoke;
+	border-radius: 4px;
+	width: 100%;
+}
+
+.create-new-board-container button{
+	background: pink;
+	border: 1px solid whitesmoke;
+	border-radius: 4px;
+	font-size: 0.9rem;
+	padding: 4px 8px;
+}
+
+.loader-inside-create-board-btn{
+	position: static;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	display: none;
+}
+
+.loader-inside-create-board-btn .loader{
+  height: 100%;
+	border-width: 3px;
 }
 /*==========================================*/
 
@@ -185,7 +309,7 @@ body{
 /* contains comment numbers and dummy comment box */
 #comment-box{
   width: 100%;
-  background: #e0e0e0;
+  background: #8686c2;
   padding: 2% 2%;
   border-radius: 7px;
   display: flex;
@@ -213,31 +337,34 @@ body{
 /*-- actual comments section --*/
 /* it will work like full comment page */
 #comment-ka-main-container{
+	height: 100dvh;
   background: #d0d0d;
   width: 100%;
   padding: 2%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   display: none;
-  height: 95%;
   margin-top: 1px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 /* navbar of comment */
 /* contains cut button */
 #navbar-of-comment{
   width: 100%;
-  background: #e0e0e0;
+  background: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3%;
-  padding: 1% 0.5%;
+  padding: 1% 1.2%;
   border-radius: 5px;
   position: sticky;
   top: 3px;
   font-size: 1.2rem;
   font-weight: 450;
   z-index: 8;
+  height: 40px;
 }
 
 /* button to close comment page */
@@ -256,7 +383,7 @@ body{
 /*-- comment boxes container & boxes --*/
 /* comment boxes will append here */
 .container-of-boxes-of-comment{
-  height: 100%;
+  min-height: 100%;
   box-sizing: border-box;
   width: 100%;
   overflow-y: auto;
@@ -266,6 +393,11 @@ body{
   z-index: 10;
 }
 
+.wrapper-inside-comment-boxes-container{
+	min-height: calc(100% + 70px);
+}
+
+
 /* box of comment */
 .comment-box{
   width: 100%;
@@ -274,17 +406,18 @@ body{
   margin-right: auto;
   padding: 2% 2%;
   display: flex;
-  color: black;
+  color: whitesmoke;
   margin-bottom: 2%;
   font-size: 1.1rem;
   overflow: hidden;
   box-sizing: border-box;
+  background: #313131;
+  border-radius: 10px;
 }
 
 /* comment paragraph */
 .comment-box span{
   width: 100%;
-  color: black;
   overflow: hidden;
   height: auto;
   word-break: break-all;
@@ -303,7 +436,6 @@ body{
 .commenter-name{
   font-size: 0.9rem;
   font-weight: 400;
-  color: #232323;
   width: 100%;
 }
 
@@ -321,8 +453,66 @@ body{
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
+
+#loader-inside-comment-boxes-con{
+	display: flex;
+	background: transparent;
+	height: 100%;
+	position: static;
+}
 /*==========================================*/
 
+
+
+/*-------------------------------------------*/
+/*           POST COMMENTS SECTION           */
+/*-------------------------------------------*/
+.main-container-of-post-comment{
+	width: 100%;
+	padding: 2px 0px;
+	display: grid;
+	grid-template-columns: 1fr auto;
+  grid-template-rows: 40px;
+	grid-column-gap: 5px
+}
+
+.main-container-of-post-comment form{
+	width: 100%;
+}
+
+.input-text-of-post-comment{
+	font-size: 1rem;
+	padding: 5px 7px;
+	border: none;
+	border: 2px solid skyblue;
+	border-radius: 5px;
+	width: 100%;
+	height: 100%;
+}
+
+.main-container-of-post-comment .image-container{
+	 height: 100%;
+	aspect-ratio: 1/1;
+}
+
+.main-container-of-post-comment .image-container img{
+	height: 100%;
+}
+
+.main-container-of-post-comment .loader-container{
+	height: 100%;
+	aspect-ratio: 1/1;
+	background: skyblue;
+	position: static;
+	display: none;
+	border-radius: 5px;
+}
+
+.main-container-of-post-comment .loader-container .loader{
+	height: 70%;
+	border-width: 3px;
+}
+/*===========================================*/
 
 
 
@@ -347,6 +537,7 @@ body{
 @media(max-width: 629px){
 	.box-of-content{
 		margin-top: 7px;
+		margin-bottom: 54px;
 	}
 }
 

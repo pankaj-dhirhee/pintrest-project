@@ -25,9 +25,11 @@ caption.forEach((image)=>{
  image.addEventListener("click", (e)=>{
  	   // Checking elment if it contains class 'dot'
 	   let classContain = e.target.classList.contains("dot");
+	   // Getting boardNqme from our custom attribute
+	   let boardName = e.target.dataset.boardname;
 	 	 // If clicked element contains class 'dot', then perform delete functionality
 	 	 if(classContain){
-		 		anchorInsideDeleteBtn.href=`deleteimage/${e.target.id}`;
+		 		anchorInsideDeleteBtn.href=`/deleteimage/${e.target.id}/${boardName}`;
 			  //show the delete box
 			  delBox.style.display = "flex" 
 			  //giving bottom position to con of delBtn

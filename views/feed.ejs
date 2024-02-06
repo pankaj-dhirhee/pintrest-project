@@ -4,12 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page title</title>
+  <!-- Linking to loader css -->
+  <link rel="stylesheet" href="../stylesheets/loader.css">
   <!-- Linking to navbar css -->
   <link rel="stylesheet" href="../stylesheets/navbar.css">
   <!-- Linking to its css -->
   <link rel="stylesheet" href="../stylesheets/feed.css">
 </head>
 <body>
+	
+<span class="loader-container loader-of-page">
+   <div class="loader"></div>
+</span>
+	
 <main class="main-container-of-page">
 	<!------------------------------------------->
   <!--            NAVBAR SECTION             -->
@@ -56,21 +63,7 @@
  <!--        YOUR IMAGES SECTION            -->
  <!------------------------------------------->
 	<div class="image-container">
-		<% posts.forEach(function(post){ %>
-		  <div class="box">
-	       <a href="">
-	          <img src="images/uploads/<%= post.image %>" />
-	       </a>
-	       <div class="caption">
-	       	  <div class="left">
-	       		  <span><%= post.imageText %></span>
-	       	  </div>
-	          <div class="right dot" id="<%= post.image %>">
-	        	  <img src="images/three-dots.png" id="<%= post.image %>" class="dot"/>
-	          </div>
-	       </div>
-	    </div> 
-		<% }) %>
+    <!-- Here images will be displayed by javascript -->		
 	</div>
 	<!--=======================================-->
 	
@@ -129,8 +122,13 @@
 
 
 
+
+<!-- Used to show console in browser -->
+<script src="node_modules/eruda/eruda.js"></script>
+<!-- This will display images with pagination -->
+<script defer src="/javascripts/render-images.js"></script>
 <!-- Script for this page -->
-<script src="javascripts/feed.js"></script>
+<script src="/javascripts/feed.js"></script>
 <!-- Linking to navbar javascript -->
 <script src="javascripts/navbar.js"></script>
 </body>

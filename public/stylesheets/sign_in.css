@@ -17,51 +17,52 @@ body{
 }
 
 
-/*-------------------------------------------*/
-/*                LOG IN FORM                */
-/*-------------------------------------------*/
-/* Error message when email or password is incorrect */
-.error{
-	font-weight: 500;
-	color: red;
-	text-transform: capitalize;
-	margin: 7px 0;
-	font-size: 1.6rem;
-}
 
-/* Container of .name-content & form */
-.flex-div{
+/*-------------------------------------------*/
+/*               SIGN IN FORM                */
+/*-------------------------------------------*/
+/* Main container of all form sections */
+.all-forms-page{
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Contains heading & paragraph */
+/* This is like a wrapper in every form section to put all the things in center  */
+.flex-div{
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styling to all name content */
+/* Contains heading & paragraph like "Register account to see more" or etc.. */
 .name-content{
-  margin-right: 7rem;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 
 .name-content img{
   height: 47px;
-  margin-bottom: 0.8rem;
+  aspect-ratio: 1/1;
+  margin-bottom: 0.2rem;
 }
 
-/* h1, contains text [ facebook ] */
-.name-content .logo{
-  font-size: 3.5rem;
-  color: #1877f2;
+/* Styling error-box in each section */
+.error-box{
+	width: 100%;
+	padding: 4px;
+	margin-bottom: 5px;
+	text-align: center;
+	color: red;
+	font-size: 1.5rem;
 }
 
-/* text [ Connect with friends and the world... ] */
-.name-content p{
-  font-size: 2.5rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  opacity: 0.7;
-}
-
+/* Styling to all forms  */
 /* Form section */
 form{
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   background: #fff;
   padding: 2rem;
@@ -95,10 +96,7 @@ form .common-input:hover {
   opacity: 0.8;
 }
 
-form .span-or{
-  margin-bottom: 0.4rem;
-}
-
+/* Styling to all common-buttons */
 form .common-button{
   border: none;
   background: gray;
@@ -106,10 +104,69 @@ form .common-button{
   height: 37px;
   color: whitesmoke;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Styling all submit buttons */
+.submit-buton{
+	outline: none;
+  border: none;
+  background: #d3002b;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #e5e5e5;
+  margin-bottom: 0.4rem;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+  height: 37px;
+  border-radius: 5px;
+  border: 1px solid black;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Styling containet of loader inside all submit button buttons */
+.loader-inside-submit-button{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  background: #d3002b;
+  display: none;
+}
+
+/* Styling loader [div] inside all forms sumbit button */
+.loader-inside-submit-button .loader{
+	height: 70%;
+	border-width: 4px;
+	border-color: whitesmoke;  
+  border-right-color: transparent;
+}
+/*===========================================*/
+
+
+
+/*-------------------------------------------*/
+/*                LOG IN FORM                */
+/*-------------------------------------------*/
+/* By default login form will be hidden */
+.login-side-container{
+	display: none;
+}
+
+form .span-or{
+  margin-bottom: 0.4rem;
+}
+
+
 form .forgot-password-container{
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin-top: 1.4rem;
   display: flex;
   align-items: center;
@@ -118,17 +175,7 @@ form .forgot-password-container{
   height: 20px;
 }
 
-form a{
-  text-decoration: none;
-  color: #1877f2;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-form hr {
+form hr{
   background: #f7f7f7;
   margin: 1rem;
 }
@@ -146,6 +193,22 @@ form .create-account:hover {
 
 
 /*-------------------------------------------*/
+/*  SEND RESET PASSWORD EMAIL FORM  SECTION  */
+/*-------------------------------------------*/
+.send-reset-email-side{
+  display: none;
+}
+
+/* This will used to show message " Email send succesfully" in greeen colour */
+.green{
+  color: green;
+}
+/*===========================================*/
+
+
+
+
+/*-------------------------------------------*/
 /*           MEDIA QUERY SECTION             */
 /*-------------------------------------------*/
 @media (max-width: 500px) {
@@ -159,7 +222,8 @@ form .create-account:hover {
   }
   
   form {
-    width: 300px;
+    width: 97vw;
+    max-width: 410px;
     height: fit-content;
   }
 
@@ -183,10 +247,6 @@ form .create-account:hover {
     font-size: 1.5rem;
   }
 
-  .flex-div {
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 
@@ -201,7 +261,7 @@ form .create-account:hover {
   }
   
   form {
-    width: 310px;
+    width: 430px;
     height: fit-content;
     margin-bottom: 6px;
   }
@@ -223,10 +283,7 @@ form .create-account:hover {
     font-size: 1.5rem;
   }
 
-  .flex-div {
-    display: flex;
-    flex-direction: column;
-  }
+  
 }
 
 
@@ -241,7 +298,7 @@ form .create-account:hover {
   }
 
   form {
-    width: 300px;
+    width: 450px;
     height: fit-content;
   }
 
@@ -262,11 +319,6 @@ form .create-account:hover {
     font-size: 1.5rem;
   }
 
-  .flex-div {
-    display: flex;
-    flex-direction: column;
-  }
-  
 }
 
 

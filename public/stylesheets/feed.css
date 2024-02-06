@@ -8,6 +8,10 @@ body{
 }
 .main-container-of-page{
 	width: 100vw;
+	height: 100dvh;
+	overflow-y: auto;
+	overflow-x: hidden;
+  display: none;
 }
 
 
@@ -16,22 +20,27 @@ body{
 /*     STYLING IMAGES CONTAINER SECTION      */
 /*-------------------------------------------*/
 .image-container{
-  display: grid;
-  width: 1400px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+  width: 97vw;
   margin: 0px auto;
-  grid-template-columns: repeat(6, 1fr);
-  align-items: start;
-  column-gap: 20px;
+  margin-right: auto;
+  gap: 13px;
+  min-height: calc(100vh + 70px);
+}
+
+.image-container .col{
+	width: 100%;
 }
 
 .image-container .box{
-  width: 100%;
-  margin-bottom: 10px;
+	display: inline-block;
   break-inside: avoid;
   border-radius: 8px;
   background: black;
   overflow: hidden;
   border: 1px solid skyblue;
+  width: 100%;
 }
 
 .image-container .box a{
@@ -159,38 +168,83 @@ body{
 
 
 /*-------------------------------------------*/
-/*           MEDIA QUERY SECTION             */
+/*            MEDIA QUERY SECTION            */
 /*-------------------------------------------*/
-@media (max-width: 1427px){
-  .image-container{
-    grid-template-columns: repeat(5, 1fr);
-    width: calc(100% - 20px);
+/* Making six columns */
+@media(min-width: 1201px) and (max-width: 1427px){
+	.image-container{
+	  width: 95vw;
+	  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+	  gap: 35px;
+  }
+  
+  .image-container .box{
+  	margin-bottom: 35px;
   }
 }
 
 
-@media (max-width: 1200px){
-  .image-container{
-    grid-template-columns: repeat(4, 1fr);
+
+/* Making four columns */
+@media(min-width: 1001px) and (max-width: 1200px){
+	.image-container{
+	  width: 95vw;
+	  grid-template-columns: 1fr 1fr 1fr 1fr;
+	  gap: 25px;
+  }
+  
+  .image-container .box{
+  	margin-bottom: 25px;
   }
 }
 
 
-@media (max-width: 1000px){
-  .image-container{
-    grid-template-columns: repeat(3, 1fr);
+
+/* Making three columns */
+@media(min-width: 787px) and (max-width: 1000px){
+	.image-container{
+	  width: 97vw;
+	  grid-template-columns: 1fr 1fr 1fr;
+	  gap: 17px;
   }
-  body{
-		overflow-x: hidden;
-	}
-}
-	
-	
-@media (max-width: 786px){
-  .image-container{
-    grid-template-columns: repeat(3, 1fr);
+  
+  .image-container .box{
+  	margin-bottom: 17px;
   }
 }
+
+
+
+/* Making three columns */
+@media(min-width: 481px) and (max-width: 786px){
+	.image-container{
+	  width: 97vw;
+	  grid-template-columns: 1fr 1fr 1fr;
+	  gap: 13px;
+  }
+  
+  .image-container .box{
+  	margin-bottom: 13px;
+  }
+}
+
+
+
+/* Making two columns */
+@media(max-width: 480px){
+	.image-container{
+	  width: 97vw;
+	  grid-template-columns: 1fr 1fr;
+	  margin-right: auto;
+	  gap: 13px;
+  }
+  
+  .image-container .box{
+  	margin-bottom: 13px;
+  }
+}
+
+
 
 @media(max-width: 629px){
 	.image-container{
@@ -204,12 +258,5 @@ body{
 		padding-top: 55px;
 		padding-bottom: 7px;
 	}
-}
-
-
-@media (max-width: 480px){
-  .image-container{
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 /*==========================================*/

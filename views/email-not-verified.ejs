@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page title</title>
+  <!-- Linking to loader css -->
+  <link rel="stylesheet" href="/stylesheets/loader.css">
+  <!-- Linking to verify-email p[age's css -->
+  <link rel="stylesheet" href="/stylesheets/email-verification.css">
+  <!-- Linking to sign-in page's css -->
+  <link rel="stylesheet" href="/stylesheets/sign_in.css">
+</head>
+<body>
+ <!------------------------------------------->
+ <!--   EMAIL NOT VERIFIED CARD IN CENTER   -->
+ <!------------------------------------------->
+ <div class="container-of-verify-email-card">
+   <div class="error-box" id="error-box-for-send-verify-mail">
+    <!-- Here error will be displayed by javascript -->
+   </div>
+      
+   <h id="verify-email-heading"> Your email is not verified </h>
+   <p id="small-paragraph"> 
+    We will send a verification mail, Please click on the botton below to receive 
+    verification mail.
+   </p>
+   
+   <!-- Send verify-email-link button --> 
+   <button type="submit" class="submit-buton common-input" id="send-verify-email-btn" data-userid="<%= userid %>">
+     <span> Send verify email </span>
+     <!-- Loader -->
+		 <span class="loader-container loader-inside-submit-button" id="loader-inside-send-verify-email-btn">
+		   <div class="loader"></div>
+		 </span>
+   </button>
+   
+   <p id="copyright">
+     &#169; All rights reserved
+   </p>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ 
+ <!-- Linking to it's js file -->
+ <script src="/javascripts/email-not-verifield.js"></script>
+</body>
+</html>

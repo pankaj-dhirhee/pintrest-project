@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page title</title>
+  <!-- Linking to loader css -->
+  <link rel="stylesheet" href="/stylesheets/loader.css">
+  <!-- Linking to login page's css -->
+  <link rel="stylesheet" href="/stylesheets/login.css">
+  <!-- Linking to its css -->
+  <link rel="stylesheet" href="/stylesheets/sign_in.css">
+</head>
+<body>
+ <!------------------------------------------->
+ <!--             SIGN IN FORM              -->
+ <!------------------------------------------->
+ <div class="signin-side-container">
+  <div class="flex-div">
+     <div class="name-content">
+       <img src="/images/pinterest-logo.png" alt=""/>
+       <p> Make account to see more </p>
+     </div>
+     
+     <!-- Here Any error or succe3ss message will be displayed -->   
+     <div class="error-box" id="error-box-for-signin">
+       <!-- Here error will be displayed by javascript -->
+     </div>
+        
+     <!-- Form is starting -->
+     <form id="sign-in-form" action="/api/user/register" method="post">
+        <input type="text" placeholder="Enter your username" required id="sign-in-name"/>
+        <input type="text" placeholder="Enter your full name" required id="sign-in-fullname"/>
+        <input type="email" placeholder="Email account" required id="sign-in-email"/>
+        <input type="password" placeholder="Password" required id="sign-in-password"/>
+        <input type="password" placeholder="Confirm password" required id="sign-in-password-confirmation"/>
+        
+        <!-- Submit or register button with loader -->   
+        <button type="submit" class="submit-buton common-input">
+          <span> Register account </span>
+          <!-- Loader -->
+					<span class="loader-container loader-inside-submit-button" id="loader-inside-register-btn">
+						<div class="loader"></div>
+					</span>
+        </button> 
+    
+        <span class="span-or">OR</span>
+        
+        <!-- Go to login page buttonh -->   
+        <div class="go-to-login-form common-button">
+          Login to account
+        </div>
+     </form>
+  </div>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ 
+ <!------------------------------------------->
+ <!--             LOGIN FORM              -->
+ <!------------------------------------------->
+ <div class="login-side-container">
+  <div class="flex-div">
+     <div class="name-content">
+        <img src="/images/pinterest-logo.png" alt=""/>
+        <p>
+          Login account to see more
+        </p>
+      </div>
+    
+     <!-- Here Any error or succe3ss message will be displayed -->   
+     <div class="error-box" id="error-box-for-login">
+       <!-- Here error will be displayed by javascript -->
+     </div>
+      
+     <!-- Form is starting -->
+     <form action="/login" method="post" id="login-form">
+        <input type="text" name="username" placeholder="Enter your email" id="login-email"/>
+        <input type="password" placeholder="Password" name="password" id="login-password" required>
+        
+        <!-- Submit or login button with loader -->   
+        <button type="submit" class="submit-buton common-input">
+           <span> Login to account </span>
+           <!-- Loader -->
+					 <span class="loader-container loader-inside-submit-button" id="loader-inside-login-btn">
+					   <div class="loader"></div>
+					 </span>
+        </button> 
+        
+        <!-- Button to go to register page --> 
+        <button class="common-button" id="go-to-signin-form">
+	        Create a new account	
+	      </button>
+	      
+         <!-- Button to go to forgot password page -->
+         <div class="forgot-password-container">
+           <span class="forgot-password">Forgot Password ?</span>
+         </div>
+         <hr>
+      </form>
+   </div>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ 
+ <!------------------------------------------->
+ <!--   FORM T0 SEND RESET PASSWORD EMAIL   -->
+ <!------------------------------------------->
+ <!-- Designing form -->
+ <div class="send-reset-email-side all-forms-page">
+   <div class="flex-div">
+      <div class="name-content">
+         <p>login account to see more</p>         
+      </div>
+      
+      <div class="error-box" id="error-box-for-reset-password-mail">
+        <!-- Here error will be displayed by javascript -->
+      </div>
+      
+      <!-- Form is starting -->
+      <form action="/login" method="post" id="send-reset-email-form">
+         <input type="text" placeholder="Enter your email" id="email-to-send-reset-password-mail"/>
+         
+         <!-- Submit or send-reset-password-email button --> 
+         <button type="submit" class="submit-buton common-input">
+           <span> Send reset password email </span>
+           <!-- Loader -->
+					 <span class="loader-container loader-inside-submit-button" id="loader-inside-send-reset-password-email-btn">
+					   <div class="loader"></div>
+					 </span>
+         </button>
+         
+      </form>
+   </div>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ <script src="../node_modules/eruda/eruda.js"></script>
+ <script src="/javascripts/eruda-console.js"></script>
+ <!-- Linking to it's js file -->
+ <script src="/javascripts/signin-and-login.js"></script>
+</body>
+</html>

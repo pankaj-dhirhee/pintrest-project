@@ -4,14 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page title</title>
+  <!-- Linking to loader css -->
+  <link rel="stylesheet" href="/stylesheets/loader.css">
   <!-- Linking to navbar css -->
-  <link rel="stylesheet" href="../stylesheets/navbar.css">
-  <!-- Linking to it's css -->
-  <link rel="stylesheet" href="../stylesheets/profile.css">
+  <link rel="stylesheet" href="/stylesheets/navbar.css">
   <!-- Linking to feed css -->
-  <link rel="stylesheet" href="../stylesheets/feed.css">
+  <link rel="stylesheet" href="/stylesheets/feed.css">
+  <!-- Linking to it's css -->
+  <link rel="stylesheet" href="/stylesheets/profile.css">
 </head>
 <body>
+	
+<!-- Loader -->
+<span class="loader-container loader-of-page">
+   <div class="loader"></div>
+</span>
+
 <main class="main-container-of-page">
 	<!------------------------------------------->
   <!--            NAVBAR SECTION             -->
@@ -43,7 +51,7 @@
 			  	 	 </a>
 		  	 </button>
 		 		 <button class="square-button" id="logout-button">
-			 	 	 	 <a href="/logout">
+			 	 	 	 <a href="/api/user/logout">
 			 	 	     Logout
 			 	 	   </a>
 		 		 </button>	
@@ -55,7 +63,7 @@
   
   
   <!-- Hidden form to uploiad profile image -->
-  <form class="form-profile-image" method="post" hidden action="/fileupload/<%= user.profileImage %>" enctype="multipart/form-data">
+  <form class="form-profile-image" hidden action="/fileupload/<%= user.profileImage %>" enctype="multipart/form-data">
   	<input type="file" id="input-for-profile-image" name="image"/>
   </form>
   <!------------------------------------------->
@@ -65,7 +73,7 @@
 	  <div class="card">
 			  <div class="profile-picture">
 			  	<div class="image-box">
-			  	<img src="/images/uploads/<%= user.profileImage %>"/>	
+			  	<img src="/images/uploads/<%= user.profileImage %>" id="profile-image-tag" data-profileimage="<%= user.profileImage %>" data-userid="<%= user._id %>"/>	
 			  	</div>
 					<div id="up-pen">
 						<img src="images/pencil.png" class="upload-img" id="<%= user.profileImage %>"/>
@@ -81,7 +89,7 @@
 				
 				<div class="container-of-buttons">
 						<button class="button">
-							<a href="/logout">
+							<a href="/api/user/logout">
 							  Logout	here
 							</a>
 						</button>
@@ -115,53 +123,65 @@
  <!------------------------------------------->
  <!--        YOUR IMAGES SECTION            -->
  <!------------------------------------------->
-	<div class="image-container">
-		   <div class="box">
-	       <a href="/show">
-	           <img src="/images/uploads/<%= user.posts[0]?.image %>" />
-	       </a>
-	       <div class="caption">
-	       	<div class="left">
-	       		<p>Your uplods</p>
-	       		<span> <%= user.posts.length %> pins </span>
-	       	</div>
-	       </div>
-	     </div> 	 
-	</div>
-	<!--=======================================-->
+ <div class="image-container">
+  <% if(boardData.length != 0){ %>
+    <% boardData.forEach((elem, index)=>{ %>
+		   <div class="box image-box">
+		       <a href="/show/<%= elem.boardName %>">
+		           <img src="/images/uploads/<%= elem.image %>"/>
+		       </a>
+		       <div class="caption">
+			       	<div class="left">
+					       	<p> <%= elem.boardName %> </p>
+						       <span> 
+						       		<span class="image-counter-inside-image-boxes" data-boardname="<%= elem.boardName %>" data-counterspan="<%= elem.boardName == 'Your uploads'? 'your-uploads': ''%>"> 
+						       		   <%= totalData[index] %> 
+						       		</span> 
+						       		Images 
+						       </span>
+				       	</div>
+				       	<div class="right dot" data-userid="<%= user._id %>" data-boardname="<%= elem.boardName %>">
+	        	      <img src="/images/three-dots.png" class="dot" data-boardname="<%= elem.boardName %>" data-userid="<%= user._id %>"/>
+	              </div>
+		       </div>
+	      </div> 	 
+    <% }); %>
+  <% } %>
+ </div>
+ <!--=======================================-->
+
+	
+	
+ <!------------------------------------------->
+ <!--          DELETE IMAGE BUTTONS         -->
+ <!------------------------------------------->
+ <!-- Delete sppecific video from history btn -->
+ <div class="delete-main-con" id="delete-box-for-three-dot">
+	  <button class="delete-btn">
+			  <a href="" class="anchor-inside-delete-btn">
+			   	 <div class="delete-img-text-container">	 
+			   	 	 <img src="images/delete.png" class="delete-img"/>
+			       <span>Delete this image</span>
+		       </div>
+			  </a>
+			  <div class="close-delete-btn">
+			    <img src="images/cut-icon.png"/>
+			  </div>
+	  </button>
+ </div>
+ <!--=======================================-->
 	
 	
 	
-	<!------------------------------------------->
-	<!--          DELETE IMAGE BUTTONS         -->
-	<!------------------------------------------->
-	<!-- Delete sppecific video from history btn -->
-	<div class="delete-main-con" id="delete-box-for-three-dot">
-	   <button class="delete-btn">
-			   <a href="" class="anchor-inside-delete-btn">
-			   	  <div class="delete-img-text-container">	 
-			   	 	  <img src="images/delete.png" class="delete-img"/>
-			        <span>Delete this image</span>
-		        </div>
-			   </a>
-			   <div class="close-delete-btn">
-			     <img src="images/cut-icon.png"/>
-			   </div>
-	   </button>
-	</div>
-	<!--=======================================-->
-	
-	
-	
-<!------------------------------------------->
-  <!--     FOOTER NAVIGATION SECTION         -->
-  <!------------------------------------------->
-	<footer>
-	  <div class="right">
-		    <button class="button-in-footer home-button">
-		    	<a href="/feed">
-		    		<img src="images/home.png"/>
-		    	</a>
+ <!------------------------------------------->
+ <!--     FOOTER NAVIGATION SECTION         -->
+ <!------------------------------------------->
+ <footer>
+	 <div class="right">
+		   <button class="button-in-footer home-button">
+		    <a href="/feed">
+		    	 <img src="images/home.png"/>
+		    </a>
 		    </button>
 		    <button class="button-in-footer bell-button">
 		    	<a href="/search">
@@ -179,8 +199,8 @@
 		    	</a>
 		    </button>
 	  </div>
-	</footer>
-	<!--=======================================-->
+ </footer>
+ <!--=======================================-->
 </main>
 
 
@@ -189,7 +209,7 @@
 <!--          UPLOAD IMAGE CARD            -->
 <!------------------------------------------->
 <div class="upload-sec">
-   <form class="uplod-image-form" action="/upload" method="post" enctype="multipart/form-data">
+   <form class="uplod-image-form">
      <div class="top">
        <span>Upload Image</span>
        <span class="close">
@@ -197,18 +217,18 @@
        </span>
      </div>
       <div class="file-input-div">
-        <input type="file" name="file">
+        <input type="file" name="file" id="file-inp-inside-upload-form">
         <span> Click here to upload image </span>
       </div>
       <div class="box-for-text-input">
-        <input type="text" name="filecaption" placeholder="Caption for image" id="image-text">
+        <input type="text" name="filecaption" placeholder="Caption for image" id="image-text" class="text-inputs-inside-upload-image-form">
       </div>
       <div class="box-for-text-input">
-        <input type="text" name="description" placeholder="Description for imaqge" id="image-text">
+        <input type="text" name="description" placeholder="Description for image" id="image-description" class="text-inputs-inside-upload-image-form">
       </div>
       <div class="submit-container">
         <input value="Submit" type="submit" class="submit" id="upload-submit" />
-        <span class="loader-container">
+        <span class="loader-container-inside-upload-image-submit-btn">
           <div class="loader"></div>
         </span>
       </div>
@@ -217,14 +237,17 @@
  <!--=======================================-->
  
  
-
-<!-- Linking to this page's javascript -->
-<script src="../javascripts/profile.js"></script>
-<!-- Linking to feed javascript -->
-<script src="../javascripts/feed.js"></script>
-<!-- Linking to navbar javascript -->
-<script src="../javascripts/navbar.js"></script>
+ 
+ 
+ 
 <!-- Used to show console in browser -->
-<script src="node_modules/eruda/eruda.js"></script>
+
+<script src="/javascripts/eruda-console.js"></script>
+<!-- Linking to this page's javascript -->
+<script src="/javascripts/profile.js"></script>
+<!-- Linking to navbar javascript -->
+<script src="/javascripts/navbar.js"></script>
+<!-- Linking to hide-loader javascript -->
+<script src="/javascripts/hide-loader.js"></script>
 </dody>
 </html>

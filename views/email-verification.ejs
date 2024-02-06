@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page title</title>
+  <!-- Linking to loader css -->
+  <link rel="stylesheet" href="/stylesheets/loader.css">
+  <!-- Linking to it's css -->
+  <link rel="stylesheet" href="/stylesheets/email-verification.css">
+  <!-- Linking to sign-in-page's css -->
+  <link rel="stylesheet" href="/stylesheets/sign_in.css">
+</head>
+<body>
+ <!------------------------------------------->
+ <!--      VERIFY EMAIL CARD IN CENTER      -->
+ <!------------------------------------------->
+ <div class="container-of-verify-email-card">
+   <div class="error-box" id="error-box-for-verify-mail">
+    <!-- Here error will be displayed by javascript -->
+   </div>
+      
+   <h id="verify-email-heading">
+     Please verify your email by clicking verify button 
+   </h>
+   <p id="small-paragraph"> 
+     You cannot login your account without verifying the email. So please verify your 
+     email. Click on verify button given below.
+   </p>
+   
+   <!-- Verify email button -->
+   <div class="container-of-verify-email-button">
+     <button type="submit" class="submit-buton common-input" id="verify-email-btn" data-info="<%= info %>">
+       <span> Verify email </span>
+       <!-- Loader -->
+  		 <span class="loader-container loader-inside-submit-button" id="loader-inside-verify-email-btn">
+  		   <div class="loader"></div>
+  		 </span>
+     </button>
+   </div>
+   
+   <div id="container-for-redirecting-to-site">
+     <!-- Here button will be displayed by javascript when email will verified -->
+   </div>
+   
+   <p id="copyright">
+     &#169; All rights reserved
+   </p>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ 
+ <!-- Linking to it's js file -->
+ <script src="/javascripts/verify-email.js"></script>
+</body>
+</html>

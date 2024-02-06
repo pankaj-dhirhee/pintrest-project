@@ -4,12 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page title</title>
+  <!-- Linking to loader css -->
+  <link rel="stylesheet" href="../stylesheets/loader.css">
   <!-- Linking to navbar css -->
   <link rel="stylesheet" href="../stylesheets/navbar.css">
   <!-- Linking to its css -->
   <link rel="stylesheet" href="/stylesheets/preview-page.css">
 </head>
 <body>
+
+<!-- Loader -->
+<span class="loader-container loader-of-page">
+   <div class="loader"></div>
+</span>	
+
 <main class="main-container-of-page">
 	<!------------------------------------------->
   <!--            NAVBAR SECTION             -->
@@ -77,14 +85,14 @@
 				
 					 <!-- Save button -->
 					 <div id="save-box" class="btn-box">
-					     <img src="/images/save.png"/>
-					     <span>save</span>
+					    <img src="/images/save.png"/>
+					    <span>save</span>
 					 </div>
 				 
-					 <!-- Share button -->
+					 <!-- Download button -->
 					 <div id="share-box" class="btn-box">
 					     <a href="/download/<%= post.image %>">
-							   <img src="/images/download-2-white.png"/>
+							   <img src="/images/download-icon.png"/>
 							   <span>Download</span>
 							 </a>
 					 </div>
@@ -107,22 +115,6 @@
 				           </span>
                </div>
            </div><!--comment-box-->
- 
- 
-           <div class="pc-comment-box">
-		           <div class="commentNumber">Comments 11</div>
-		           
-		            <!-- Post comment -->
-							  <div class="post-comment">
-							    <img src="/images/profile.png"/>
-							    <input type="text" placeholder="Post your comment">
-							  </div>
-							  
-		            <!-- here comment boxes will append -->
-		            <div class="container-of-boxes-of-comment">
-		            <!-- comments will be displayed here by javascript -->  
-		            </div>
-            </div><!-- pc-comment-box -->
         </div><!--comment-container-->
 		  	
 		  	<!-- Description for our preview image -->
@@ -134,9 +126,9 @@
    </div>
   </div>	
   <!--=======================================-->
-
-
-
+  
+  
+  
   <!------------------------------------------->
   <!--     FOOTER NAVIGATION SECTION         -->
   <!------------------------------------------->
@@ -169,13 +161,93 @@
 
 
 
-<!-- Linking to axios cdn -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!-- Linking to its javascript -->
-<script src="node_modules/eruda/eruda.js"></script>
+<!------------------------------------------->
+<!--         SAVE IMAGE POPUP MENU         -->
+<!------------------------------------------->
+ <div class="save-image-modal">
+  	<div class="wrapper" id="save-image-modal-wrapper" data-image="<%= post.image %>" data-imagetext="<%= post.imageText %>" data-description="<%= post.description %>">
+  		
+  		<div class="navbar-of-save-modal">
+  			<span> Save to </span>
+  			<img src="/images/cut-icon.png" class="cut-btn-of-modal-navbar"/>
+  		</div>
+  		
+  		<div class="boards">
+	  	  <% user.boards.forEach((boardName, index)=>{ %>
+	  		   <% if(boardName != 'Your uploads'){ %>
+					  	<div class="box" data-boardname="<%= boardName %>" data-indexofbox="<%= index %>">
+					  	 	 <p data-boardname="<%= boardName %>" data-indexofbox="<%= index %>"> <%= boardName %> 
+					  	 	 </p>
+					  	 	 <!-- Loader -->
+								 <span class="loader-container loader-inside-board-boxes">
+								     <div class="loader"></div>
+								 </span>
+					  	</div>
+			     <% } %> 
+			  <% }); %>
+		  </div>
+		  
+		   <div class="create-new-board-container">
+			  	<input type="text" id="input-for-create-new-board-name" placeholder="Create new board"/>
+			  	<button class="create-new-board-button">
+				  		<span id="span-inside-create-board-button"> Create </span>
+				  		<!-- Loader -->
+						  <span class="loader-container loader-inside-create-board-btn">
+							  <div class="loader"></div>
+							</span>
+			  	</button>
+		  </div>
+  	</div>
+ </div>
+<!--=======================================-->
+
+
+
+<!------------------------------------------->
+<!--        ACTUAL COMMENT SECTION         -->
+<!------------------------------------------->
+<div id="comment-ka-main-container" data-postid="<%= post._id %>">
+	 <!--navbar for cut button-->
+	 <div id="navbar-of-comment">
+			 <span>Comments</span>
+			 <div id="comment-cross-button" class="nav-comment-close-btn">
+	  	 <img src="/images/close.png"/>
+			 </div>
+	 </div>
+   
+   <!-- Container where comments wii be displayed -->
+	 <div class="container-of-boxes-of-comment">
+	 	 <div class="wrapper-inside-comment-boxes-container">
+	 	 	<!-- here comment boxes will be dispalyed by javascript -->
+	 	 </div>
+   </div>  
+	 
+	 
+	 <!--  Post comment section -->
+	 <div class="main-container-of-post-comment" data-username="<%= user.username %>" data-profileimage="<%= user.profileImage %>" data-postid="<%= post._id %>">
+		  <div id="form-to-post-comment">
+		  	<input type="text" class="input-text-of-post-comment" placeholder="Enter your comment" name="content"/>
+		  </div>
+		  <div class="image-container" id="post-comment-button">
+		  	<img src="/images/send.png"/>
+		  </div>
+		  	
+		  <!-- Loader -->
+		  <span class="loader-container" id="loader-inside-post-comment">
+		     <div class="loader"></div>
+		  </span>
+	 </div>
+</div>
+<!--=======================================-->
+
+
+
+
 <!-- Automatically show eruda console -->
 <script src="/javascripts/eruda-console.js"></script>
 <!-- Linking to this page's javascript file -->
 <script src="/javascripts/preview.js"></script>
+<!-- Linking to hide-loader javascript -->
+<script src="../javascripts/hide-loader.js"></script>
 </body>
 </html>

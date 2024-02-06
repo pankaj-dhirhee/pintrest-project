@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 
 const postschema = new mongoose.Schema({
+	boardName:{
+		type: String,
+	},
+	
 	imageText: {
 		type: String,
 		required: true,
