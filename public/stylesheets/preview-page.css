@@ -144,7 +144,7 @@ body{
 
 /* Save button */
 #save-box{
-  margin: 8px;
+  margin: 0px;
 }
 
 #save-box a{
@@ -161,7 +161,7 @@ body{
 
 /* Share button */
 #share-box{
-  margin: 8px;
+  margin: 0px;
 }
 
 #share-box a{

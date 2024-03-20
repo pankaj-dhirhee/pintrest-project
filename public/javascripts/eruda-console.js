@@ -10,7 +10,7 @@ function show_eruda_console_using_package(){
 				}
 		)();
 };
-show_eruda_console_using_package();
+//show_eruda_console_using_package();
 
 
 // Automatically show eruda console using it's cdn
@@ -26,7 +26,7 @@ function show_eruda_console_using_cdn(){
 		  }
 		)();
 };
-
+show_eruda_console_using_cdn()
 
 /* 
  > To include this console in your html =>

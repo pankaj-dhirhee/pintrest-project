@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page title</title>
+  <!-- Linking to loader css -->
+  <link rel="stylesheet" href="/stylesheets/loader.css">
+  <!-- Linking to navbar css -->
+  <link rel="stylesheet" href="/stylesheets/navbar.css">
+  <!-- Linking to feed css -->
+  <link rel="stylesheet" href="/stylesheets/feed.css">
+  <!-- Linking to it's css -->
+  <link rel="stylesheet" href="/stylesheets/profile.css">
+</head>
+<body>
+	
+<!-- Loader -->
+<span class="loader-container loader-of-page">
+   <div class="loader"></div>
+</span>
+
+<main class="main-container-of-page">
+	<!------------------------------------------->
+  <!--            NAVBAR SECTION             -->
+  <!------------------------------------------->
+  <nav>
+  	<div class="left">
+  		 <span class="name-of-website">
+  			 Pinterest
+  		 </span>
+  	</div>
+  	<div class="right">
+  		<div class="container-of-links">
+	  		 <span>
+	  		 	 <a href="/">
+	  		 	 	  Feed
+	  		 	 </a>
+	  		 </span>
+	  		 <span>
+	  		 	 <a href="/profile">
+	  		 	 	  Profile
+	  		 	 </a>
+	  		 </span>
+  		</div>
+  		 
+  		 <div class="nav-container-of-buttons">
+		  	 <button class="square-button" id="search-button">
+			  	 	 <a href="/search">
+			  	 	   <img src="images/search.png"/>
+			  	 	 </a>
+		  	 </button>
+		 		 <button class="square-button" id="logout-button">
+			 	 	 	 <a href="/api/user/logout">
+			 	 	     Logout
+			 	 	   </a>
+		 		 </button>	
+  		 </div>
+  	</div>
+  </nav>
+  <!--=======================================-->
+  
+  
+  
+  <!-- Hidden form to uploiad profile image -->
+  <form class="form-profile-image" hidden action="/fileupload/<%= user.profileImage %>" enctype="multipart/form-data">
+  	<input type="file" id="input-for-profile-image" name="image" accept="image/*"/>
+  </form>
+  <!------------------------------------------->
+  <!--           PROFILE SECTION             -->
+  <!------------------------------------------->
+  <div class="profile-section">
+	  <div class="card">
+	    <div class="left-side-of-profile-card">
+	       <div class="profile-picture">
+			  	 <div class="image-box">
+			  	 <img src="/images/uploads/<%= user.profileImage %>" id="profile-image-tag" data-profileimage="<%= user.profileImage %>" data-userid="<%= user._id %>"/>	
+			  	 </div>
+					 <div id="up-pen">
+						<img src="images/pencil.png" class="upload-img" id="<%= user.profileImage %>"/>
+					 </div>
+				 </div>
+	    </div>
+	    
+	    <div class="box-for-margin-between-left-and-right-side-of-profile-card"></div>
+	    
+	    <div class="right-side-of-profile-card">
+	       <p class="name">
+					 <%= user.fullname %>
+				 </p>
+				 <p class="username">
+					 @<%= user.username %>
+				 </p>
+				 
+				 
+				 <div class="container-of-buttons">
+						<button class="button">
+							Edit profile
+						</button>
+						<button class="button create-post-btn" id="image-upload-button">
+						      <span> Add a post </span>
+						    </div>
+						</button>
+	       </div>
+   </div>
+ </div>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ 
+ <!------------------------------------------->
+ <!--            SOME OPTIONS               -->
+ <!------------------------------------------->
+ <div class="options-container">
+  <div class="wrapper">
+ 	 	  <div class="option" id="posts-option">
+ 	    	<span> Posts </span>
+   	  </div>
+ 	    <div class="option" id="saved-option">
+ 	      <span> Saved </span>
+    	</div>
+  </div>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ 
+ <!------------------------------------------->
+ <!--        YOUR IMAGES SECTION            -->
+ <!------------------------------------------->
+ <div class="image-container">
+  <% if(boardData.length != 0){ %>
+    <% boardData.forEach((elem, index)=>{ %>
+		   <div class="box image-box" data-imageboxindex="<%= index %>">
+		       <a href="/show/<%= elem.boardName %>">
+		           <img src="/images/uploads/<%= elem.image %>"/>
+		       </a>
+		       <div class="caption">
+			       	<div class="left">
+					       	<p> <%= elem.boardName %> </p>
+						       <span> 
+						       		<span class="image-counter-inside-image-boxes" data-boardname="<%= elem.boardName %>" data-counterspan="<%= elem.boardName == 'Your uploads'? 'your-uploads': ''%>"> 
+						       		   <%= totalData[index] %> 
+						       		</span> 
+						       		Images 
+						       </span>
+				       	</div>
+				       	<div class="right dot" data-userid="<%= user._id %>" data-boardname="<%= elem.boardName %>" data-indexofdotbtn="<%= index %>">
+	        	      <img src="/images/three-dots.png" class="dot" data-boardname="<%= elem.boardName %>" data-userid="<%= user._id %>" data-indexofdotbtn="<%= index %>"/>
+	              </div>
+		       </div>
+	      </div> 	 
+    <% }); %>
+  <% } %>
+  
+  
+  
+  
+  <!------------------------------------------->
+ <!-- DROPDOWN MENU FOR IMAGE BOX THREE DOT -->
+ <!------------------------------------------->
+ <div class="dropdown-menu-for-image-box">
+   <div class="wrapper">
+       <!-- 1. Delete button -->     
+       <button class="delete-btn">
+  			 <span> Delete this image </span>
+  			 <div class="buttons-loader" id="loader-of-delete-btn">
+           <div class="loader"></div>
+         </div>         
+  	   </button>
+   </div>
+ </div>
+ 
+ 
+ </div>
+ <!--=======================================-->
+
+	
+	
+ 
+ 
+ 
+ 
+ 
+	
+	
+	
+ <!------------------------------------------->
+ <!--     FOOTER NAVIGATION SECTION         -->
+ <!------------------------------------------->
+ <footer>
+	 <div class="right">
+		   <button class="button-in-footer home-button">
+		    <a href="/">
+		    	 <img src="images/home.png"/>
+		    </a>
+		    </button>
+		    <button class="button-in-footer bell-button">
+		    	<a href="/search">
+		    		<img src="images/search.png"/>
+		    	</a>
+		    </button>
+		    <button class="button-in-footer message-button">
+		    	<a href="/inbox">
+		    		<img src="images/message.png"/>
+		    	</a>
+		    </button>
+		    <button class="profile">
+		    	<a href="/profile">
+		    		<img src="images/profile.png"/>
+		    	</a>
+		    </button>
+	  </div>
+ </footer>
+ <!--=======================================-->
+</main>
+
+
+
+<!------------------------------------------->
+<!--          UPLOAD IMAGE CARD            -->
+<!------------------------------------------->
+<div class="upload-sec">
+   <form class="uplod-image-form">
+     <div class="top">
+       <span>Upload Image</span>
+       <span class="close">
+         <img src="../images/close.png"/>
+       </span>
+     </div>
+      <div class="file-input-div">
+        <input type="file" name="file" id="file-inp-inside-upload-form" accept="image/*"/>
+        <span> Click here to upload image </span>
+      </div>
+      <div class="box-for-text-input">
+        <input type="text" name="filecaption" placeholder="Caption for image" id="image-text" class="text-inputs-inside-upload-image-form">
+      </div>
+      <div class="box-for-text-input">
+        <input type="text" name="description" placeholder="Description for image" id="image-description" class="text-inputs-inside-upload-image-form">
+      </div>
+      <div class="submit-container">
+        <input value="Submit" type="submit" class="submit" id="upload-submit" />
+        <span class="loader-container-inside-upload-image-submit-btn">
+          <div class="loader"></div>
+        </span>
+      </div>
+   </form>
+ </div>
+ <!--=======================================-->
+ 
+ 
+ 
+ 
+ 
+<!-- Used to show console in browser -->
+
+<script src="/javascripts/eruda-console.js"></script>
+<!-- Linking to this page's javascript -->
+<script src="/javascripts/profile.js"></script>
+<!-- Linking to navbar javascript -->
+<script src="/javascripts/navbar.js"></script>
+<!-- Linking to hide-loader javascript -->
+<script src="/javascripts/hide-loader.js"></script>
+</dody>
+</html>

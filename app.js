@@ -12,7 +12,6 @@ var userRoutes = require('./routes/userRoutes.js');
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api')
 var paginationRouter = require('./routes/pagination');
-const passport = require('passport');
 const connectDb = require("./config/connectdb");
 
 var app = express();
@@ -51,7 +50,7 @@ app.use('/pagination', paginationRouter);
 app.use("/api/user", userRoutes);
 
 
-let port = 4500;
+let port = process.env.PORT;
 app.listen(port, ()=>{
 	console.log("server is running on port:" + ' ' + port)
 });

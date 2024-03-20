@@ -58,7 +58,7 @@ class UserController{
 				    // Generating token to verify email, token contains users-id-of-db 
 				    let email_verify_token = jwt.sign({userID: saved_user._id}, process.env.JWT_SECRET_KEY, { expiresIn: '15m' });
 				    // Generating a link to verify email this link contains that generated token
-				    let email_verify_link = `http://localhost:${process.env.PORT}/api/user/email-verification/${email_verify_token}`; 
+				    let email_verify_link = `${process.env.BASE_URL}/api/user/email-verification/${email_verify_token}`; 
 				    
 				    // Sending email verification mail to the user
 				    // In this 'info' variable details will come like -> email is send or not
@@ -90,7 +90,10 @@ class UserController{
 				      > Destroying current sessiobn of user, if we dont do this then =>
 				      > User will be logged inwith his old account even after registering new account.
 				    */
-				    req.session.destroy();
+				    
+				    if(req.session){
+				      req.session.destroy(); 
+				    }
 				    
 				    // Sending responce
 				    res.status(201).send({
@@ -166,7 +169,9 @@ class UserController{
 				      > Destroying current sessiobn of user, if we dont do this then =>
 				      > User will be logged inwith his old account even after login to new account.
 				    */
-				    req.session.destroy();
+				    if(req.session){
+				      req.session.destroy(); 
+				    }
 				    
 				    if(user.isEmailAuthenticated == false){
 				      // Sending responce that, login is success
@@ -287,7 +292,7 @@ class UserController{
         // Generating new token for reset password, it contains user id 
       	const token = jwt.sign({ userID: user._id }, secret, {expiresIn: '15m'});
       	// Generating link for reset password
-      	const link = `http://localhost:4500/api/user/reset/${user._id}/${token}`;
+      	const link = `${process.env.BASE_URL}/api/user/reset/${user._id}/${token}`;
       	
       	// Here Object will come to send email using node mailer
       	let info = "";
@@ -410,7 +415,7 @@ class UserController{
    // Generating a token that contains user-id-of-db
    let email_verify_token = jwt.sign({userID: user_from_db._id}, process.env.JWT_SECRET_KEY, { expiresIn: '15m' });
    // Generating link that will be send to user's mail to verify the email
-	 let email_verify_link = `http://localhost:${process.env.PORT}/api/user/email-verification/${email_verify_token}`
+	 let email_verify_link = `${process.env.BASE_URL}/api/user/email-verification/${email_verify_token}`
    
    // Sending verify email link to the user
    let info = "";

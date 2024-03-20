@@ -1,9 +1,9 @@
 const router = require("./index")
-const postModel = require("./posts");
+const postModel = require("../models/posts");
 const userModel = require("../models/User.js");
-const commentModel = require("./comments");
+const commentModel = require("../models/comments");
 const checkUserAuth = require('../middlewares/auth-middleware.js');
-
+const disable_browser_cache = require("../middlewares/disable-browser-cache.js");
 
 
 //---------------------------------------------//
@@ -238,7 +238,9 @@ const deleteBoard = async (req, res) => {
 		boardName: boardName,
 	});
 	
-	res.redirect(req.get('referer'));
+	res.json({
+	  status: "success"
+	})
 }
 //=============================================//
 

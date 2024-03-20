@@ -1,23 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const userModel = require("../models/User.js");
-const postModel = require("./posts");
-const commentModel = require("./comments");
+const postModel = require("../models/posts");
+const commentModel = require("../models/comments");
 const session = require('express-session');
 const upload = require("./multer")
 const fs = require("fs");
 const path = require('path');
 const checkUserAuth = require('../middlewares/auth-middleware.js');
 const jwt = require('jsonwebtoken');
+const disable_browser_cache = require("../middlewares/disable-browser-cache.js");
 
 
-router.get("/", (req, res)=>{
-  res.send("Working");
-})
+
+
+
+
 
 
 // Rendering profile page
-router.get("/profile", checkUserAuth, async function(req, res, next){
+router.get("/profile", disable_browser_cache, checkUserAuth, async function(req, res, next){
   let requested_user = req.user;
   
 	const user = await userModel.findOne({
@@ -75,7 +77,7 @@ router.get("/profile", checkUserAuth, async function(req, res, next){
 
 
 // Rendering feed page
-router.get('/feed', checkUserAuth, async (req, res, next)=>{
+router.get('/', checkUserAuth, async (req, res, next)=>{
   res.render('feed');
 });
 
@@ -200,7 +202,7 @@ router.post('/fileupload/:imgurl', checkUserAuth, upload.single("image"), async 
 
 
 
-// Route to delete iamges on click of delete button
+// Route to delete images on click of delete button
 router.get('/deleteimage/:imageurl/:boardName', checkUserAuth, async (req, res)=>{
 	let imageUrl = req.params.imageurl;
 	let boardName = req.params.boardName;
@@ -236,7 +238,9 @@ router.get('/deleteimage/:imageurl/:boardName', checkUserAuth, async (req, res)=
 				  if(err) throw err;
 			});
 	}
-  res.redirect(req.get('referer'))
+  res.json({
+    "status": "success"
+  })
 });
 
 

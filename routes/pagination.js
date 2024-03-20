@@ -1,7 +1,7 @@
 const router = require("./index")
-const postModel = require("./posts");
+const postModel = require("../models/posts");
 const userModel = require("../models/User.js");
-const commentModel = require("./comments");
+const commentModel = require("../models/comments.js");
 const checkUserAuth = require('../middlewares/auth-middleware.js');
 
 
@@ -31,13 +31,15 @@ router.get('/feed/:limit/:page', async (req, res, next)=>{
 
 
 // Rendering image with pagination for imgShow page
-router.get('/show/:limit/:page/:board_name', checkUserAuth, async (req, res, next)=>{
+router.get('/show/:limit/:page/:skip_decrement/:board_name', checkUserAuth, async (req, res, next)=>{
 	// Getting page number for pagination
 	let page = Number(req.params.page) || 1;
 	// Getting limit for pagination
 	let limit = Number(req.params.limit) || 4;
+	// if user deleated any post then innext page 1 post will not display. to solve this problem.
+	let skip_back = Number(req.params.skip_decrement) || 0;
 	// calculating what number of post data will skip
-	let skip = (page - 1) * limit;
+	let skip = ((page - 1) * limit) - skip_back;
 	
 	// Getting data of logged in user
 	const user = await userModel.findOne({

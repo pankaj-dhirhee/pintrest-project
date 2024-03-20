@@ -5,7 +5,7 @@ let closeButton = document.querySelector(".close");
 // Upload section 
 let uploadSection = document.querySelector(".upload-sec");
 // Upload image button
-let UploadImageBtn = document.querySelector("#upload-image");
+let UploadImageBtn = document.getElementById("upload-image");
 // Upload image form
 let uploadForm = document.querySelector(".uplod-image-form")
 // Submit button of upload image form
@@ -30,12 +30,16 @@ let inputForProfileImage = document.querySelector(".form-profile-image input");
 let caption = document.querySelectorAll(".caption");
 // Close button inside delete button
 let closeBtnInDeleteBtn = document.querySelector(".close-delete-btn")
-// Anchor tag inside delete button
-let anchorInsideDeleteBtn = document.querySelector(".anchor-inside-delete-btn");
-// Main container of delete button
-let delBox = document.querySelector('.delete-main-con');
+// A container inside delete button that contains text and a delete icon
+let delete_button = document.querySelector(".delete-btn")
+
+
+let dropdown_menu_for_image_box = document.querySelector(".dropdown-menu-for-image-box");
+
 // This is direct child of main container of delete button 
 delBtn = document.querySelector('.delete-btn')
+// Loader inside delete button container5
+let loader_of_delete_btn = document.getElementById("loader-of-delete-btn")
 // Selecting three dots of all image box 
 let dot = document.querySelectorAll(".dot");
 // Image tag of profile image 
@@ -53,6 +57,7 @@ let imagesContainer = document.querySelector(".image-container");
 UploadImageBtn.addEventListener("click", ()=>{
   uploadSection.style.display = 'flex';
   mainContainerOfPage.style.opacity = '0.1';
+  console.log("Upload image event listener")
 });
 
 // Hide upload cart on click of close button inside upload card
@@ -230,18 +235,101 @@ caption.forEach((image)=>{
 	   let userId = e.target.dataset.userid;
 	 	 // If clicked element contains class 'dot', then perform delete functionality
 	 	 if(classContain){
-		 		anchorInsideDeleteBtn.href=`/api/deleteboard/${userId}/${boardName}`;
+	 	   
+        	 	   
+		 		delete_button.dataset.deleteinfo=`/api/deleteboard/${userId}/${boardName}`;
+		 		delete_button.dataset.clickeddotindex = e.target.dataset.indexofdotbtn;
 			  //show the delete box
-			  delBox.style.display = "flex" 
+			  let index_of_clicked_dot = e.target.dataset.indexofdotbtn;
+			  console.log("index_of_clicked_dot " + index_of_clicked_dot);
+			  let clicked_image_three_dot = document.querySelectorAll(".three-dot-image")[index_of_clicked_dot];
+			  console.log("clicked_image_three_dot " + JSON.stringify(clicked_image_three_dot));
+			  
+		  let bounting_client_of_clicked_three_dot = clicked_image_three_dot.getBoundingClientRect();
+			  dropdown_menu_for_image_box.style.display = "inline-block"
+			  //clicked_image_three_dot.style.border = "2px solid red"
+			 console.log(bounting_client_of_clicked_three_dot)
+			  let left = bounting_client_of_clicked_three_dot.left
+			  let top = bounting_client_of_clicked_three_dot.top
+			  let right = window.innerWidth - bounting_client_of_clicked_three_dot.right;
+			  console.log("right" + right);
+			  console.log("left" + left)
+			  if(right < 100){
+			    
+			    console.log("If satatement");
+			    dropdown_menu_for_image_box.style.left = "auto";
+			    dropdown_menu_for_image_box.style.right = right +  "px";
+			    dropdown_menu_for_image_box.style.top = top +  "px";
+			    
+			  }else{
+			    console.log("else statement");
+			    dropdown_menu_for_image_box.style.right = "auto";
+			    dropdown_menu_for_image_box.style.left = left +  "px";
+			    dropdown_menu_for_image_box.style.top = top +  "px";
+			    
+			  }
+			  
+			  
+			  
+			 // Thius function will add event listener to the delete button  
+			 delete_button_event_listener();
+			 
+			 
+	 	   mainContainerOfPage.addEventListener("scroll", () =>{
+	 	        delete_button.removeEventListener("click", ()=>{ });
+	 	      dropdown_menu_for_image_box.style.display = "none";
+			  mainContainerOfPage.removeEventListener("scroll", ()=>{ });
+	
+	       
+			  
+			  
+			  
+	 	   });
+	 	   
+	 	   
+	 	   
 			  //giving bottom position to con of delBtn
-			  delBox.style.bottom = "1%";
+			  //delBox.style.bottom = "1%";
  	   }
  });
 });
 
 
 // Closing delete button
-closeBtnInDeleteBtn.addEventListener('click', (e)=>{
+/*closeBtnInDeleteBtn.addEventListener('click', (e)=>{
 	delBox.style.display = 'none';
+	
+});*/
+
+
+
+
+
+function delete_button_event_listener(){
+// When clicking on container inside deelete btn, delete the board
+delete_button.addEventListener("click", async ()=>{
+  let bounding_client_delete_button = delete_button.getBoundingClientRect();
+  delete_button.style.height = bounding_client_delete_button.height + "px";
+  delete_button.style.width = bounding_client_delete_button.width + "px";
+  
+  
+  delete_button.querySelector(".btn-text").style.display = "none";
+  loader_of_delete_btn.style.display = "flex"
+  let api_urt = delete_button.dataset.deleteinfo;
+  
+  let get_request = await fetch(api_urt);
+  let responce = await get_request.json();
+  
+  if(responce.status == "success"){
+    let index_of_clicked_dot = delete_button.dataset.clickeddotindex;
+    let element_to_be_removed = document.querySelector(`[data-imageboxindex~="${index_of_clicked_dot}"]`);
+    
+    element_to_be_removed.remove();
+    delete_button.querySelector(".btn-text").style.display = "inline";
+    loader_of_delete_btn.style.display = "none";
+    dropdown_menu_for_image_box.style.display = "none";
+    
+  }
 });
-//=============================================//
+
+}  // Delet btn evnt listyener finction end

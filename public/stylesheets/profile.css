@@ -11,6 +11,7 @@ body{
 .main-container-of-page{
 	width: 100vw;
 	display: none;
+	
 }
 
 
@@ -37,18 +38,30 @@ body{
 }
 
 .card{
+  width: 95%;
 	padding: 0vh 2vw;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
-	text-align: center;
 }
+
+.right-side-of-profile-card{
+   text-align: center; 
+}
+
+
+.box-for-margin-between-left-and-right-side-of-profile-card{
+  margin: 0px 3px;
+  min-height: 10px;
+}
+
+
 
 .profile-picture{
 	position: relative;
 	height: 100px;
 	max-height: 100px;
-	width: 100px;
+	aspect-ratio: 1/1;
 	border-radius: 50%;
 	border: 1px solid whitesmoke;
 	display: flex;
@@ -67,8 +80,9 @@ body{
 }
 
 .profile-picture .image-box img{
-	height 100%;
-	width: 100%;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
 }
 
 .profile-picture #up-pen{
@@ -92,15 +106,19 @@ body{
 .profile-picture #up-pen input{
 	display: none;
 }
-
+.card{
+  font-size: 16px;
+}
 .card .name{
-	font-size: 2rem;
+	font-size: 1.5em;
 	font-weight: bold;
-	margin-top: 0.7rem;
+	letter-spacing: 2px;
 }
 
 .card .username{
   margin: 0.6rem 0px;
+  font-size: 1.1em;
+  letter-spacing: 2px;
 }
 
 .profile-section .container-of-buttons{
@@ -110,17 +128,41 @@ body{
 
 .profile-section .container-of-buttons .button{
   border: none;
-	border-radius: 20px;
-	padding: 12px 25px;
+	border-radius: 5px;
+	padding: 5px 10px;
 	background: #686868;
-	font-size: 1.05rem;
+	font-size: 0.85em;
 	color: whitesmoke;
+	letter-spacing: 1px;
 }
 
 .profile-section .button a{
 	color: white;
 	text-decoration: none;
 }
+
+.buttons-loader{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  border: 1px solid black;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  display: none; 
+}
+.buttons-loader .loader{
+  width: 21px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: 3px double pink;
+  border-left: 3px solid dodgerblue;
+  animation: loading 0.9s infinite linear; 
+}
+
 /*==========================================*/
 
 
@@ -128,6 +170,7 @@ body{
 /*-------------------------------------------*/
 /*           OPTIONS POSTS &  SAVED          */
 /*-------------------------------------------*/
+/* If you want to unhide this the remove 'display: none' from everywhere*/
 .options-container{
 	width: 98vw;
 	margin: 10px 1vw;
@@ -136,12 +179,14 @@ body{
 	border-radius: 5px;
 	display: flex;
 	justify-content: center;
+	display: none;
 }
 
 .options-container .wrapper{
 	height: 100%;
 	display: flex;
 	align-items: center;
+	display: none;
 }
 
 .options-container .wrapper .option{
@@ -152,6 +197,7 @@ body{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	display: none;
 }
 
 #posts-option{
@@ -258,6 +304,8 @@ body{
   border-radius: 5px;
   background: #8098ff;
 }
+
+
 /*==========================================*/
 
 
@@ -266,7 +314,8 @@ body{
 /*               IMAGE CONTAINER             */
 /*-------------------------------------------*/
 .image-container{
-  min-height: auto;
+  padding-top: 20px;
+  min-height: 300vh;
   align-items: start;
 }
 /*==========================================*/
@@ -332,6 +381,9 @@ body{
   .profile-section{
     margin-top: calc(var(--nav-height-at-thousand-px) + 25px);
   }
+  .box-for-margin-between-left-and-right-side-of-profile-card{
+    max-width: 60px;
+  }
 }
 
 
@@ -343,3 +395,79 @@ body{
   }
 }
 /*==========================================*/
+
+@media(max-width: 339px){
+  .box-for-margin-between-left-and-right-side-of-profile-card{
+  
+  width: 5vw;
+}
+.card{
+    font-size: 13.5px;
+  }
+.profile-section .container-of-buttons .button{
+  font-size: 1em;
+}  
+}
+
+@media(min-width: 340px) and (max-width: 549px){
+  .card{
+    font-size: 17px;
+  }
+  .box-for-margin-between-left-and-right-side-of-profile-card{
+  
+  width: 5vw;
+}
+}
+
+@media(min-width: 550px){
+  .card{
+    font-size: 20px;
+  }  
+}
+
+/* Making profile card in landscape*/
+@media(min-width: 600px){
+  .box-for-margin-between-left-and-right-side-of-profile-card{
+    width: 6vw;
+    height: 100%;
+    max-width: 60px;
+  }
+  .card{
+    flex-direction: row;
+  }
+  .right-side-of-profile-card{
+      text-align: left; 
+    }
+    
+    .name{
+      margin-top: 0px;
+    }
+}
+
+
+@media(min-width: 200px) and (max-width: 400px){
+  .profile-picture{
+    height: 80px;
+    aspect-ratio: 1/1;
+  }
+  .profile-section .card{
+    padding: 0px;
+  }
+  .right-side-of-profile-card{
+    text-align: left;
+  }
+  .right-side-of-profile-card .name{
+    
+    font-weight: 400;
+    letter-spacing: 1.5px;
+  }
+  .right-side-of-profile-card .username{
+    
+    font-weight: 200;
+    letter-spacing: 1.5px;
+  }
+}
+
+
+
+
