@@ -28,7 +28,7 @@ app.use(flash());
 app.use(expressSession({
 	resave: false,
 	saveUninitialized: false,
-	secret: "hey hey hey",
+	secret: process.env.EXPRESS_SESSION_SECRET_KEY,
 	cookie: {
     // Session expires after 15 min of inactivity.
     expires: 60000 * 10

@@ -3,8 +3,15 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+/* Colours */
+:root {
+ --deepBlack: #010101;
+ --lightBlack: #212121; 
+ --lightBlackBorderColor: #4f4a4a;
+}
+
 body{
-	background: #262629;
+	background: var(--deepBlack);
 }
 .main-container-of-page{
 	min-height: 100svh;
@@ -13,6 +20,11 @@ body{
 .name-of-website{
 	color: whitesmoke;
 }
+
+
+
+
+
 
 
 
@@ -89,6 +101,19 @@ body{
   scroll-behavior: smooth;
   justify-content: space-between;
 }
+/* Hiding the scroll bar */ 
+#button-container{
+    overflow-y: scroll;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+#button-container::-webkit-scrollbar {
+    width: 0; /* For Chrome, Safari, and Opera */
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+
 
 /* giving same styles to all btn box */
 /* contains button image */
@@ -97,18 +122,19 @@ body{
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  background: #9e9ece;
+  background: var(--lightBlack);
   border-radius: 20px;
   box-sizing: border-box;
   padding: 4px 8px;
   height: 35px;
   box-sizing: border-box;
+  color: whitesmoke;
 }
 
 /* giving same styles to all btn images */
 .btn-box img{
-  height: 70%;
-  margin-right: 6px;
+  height: 65%;
+  margin-right: 8px;
   aspect-ratio: 1.1/1;
 }
 
@@ -145,6 +171,7 @@ body{
 /* Save button */
 #save-box{
   margin: 0px;
+  padding: 4px 12px;
 }
 
 #save-box a{
@@ -156,12 +183,13 @@ body{
 
 /*image of save btn box*/
 #save-box img{
-  margin-right: 6px;
+  margin-right: 8px;
 }
 
 /* Share button */
 #share-box{
   margin: 0px;
+  padding: 4px 12px;
 }
 
 #share-box a{
@@ -171,12 +199,12 @@ body{
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: black;
+  color: whitesmoke;
 }
 
 /*image of share box*/
 #share-box img{
-  margin-right: 6px;
+  margin-right: 8px;
 }
 /*==========================================*/
 
@@ -192,7 +220,7 @@ body{
 	bottom: -100%;
 	border-top-left-radius: 9px;
 	border-top-right-radius: 9px;
-	background: black;
+	background: var(--lightBlack);
 	display: flex;
 	padding: 11px;
 	justify-content: center;
@@ -200,6 +228,7 @@ body{
 	max-height: calc(100svh - 60px);
 	overflow-y: auto;
 	display: none;
+	border: 1px solid var(--lightBlackBorderColor);
 }
 
 .save-image-modal .wrapper{
@@ -306,15 +335,28 @@ body{
  width: 100%;
 }
 
+/* Hiding the scroll bar */ 
+#comment-container{
+    overflow-y: scroll;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+#comment-container::-webkit-scrollbar {
+    width: 0; /* For Chrome, Safari, and Opera */
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+
 /* contains comment numbers and dummy comment box */
 #comment-box{
   width: 100%;
-  background: #8686c2;
+  background: #212121;
   padding: 2% 2%;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
-  color: black;
+  color: whitesmoke;
   margin-bottom: 2%;
 }
 
@@ -352,32 +394,36 @@ body{
 /* contains cut button */
 #navbar-of-comment{
   width: 100%;
-  background: black;
+  background: var(--lightBlack);
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3%;
-  padding: 1% 1.2%;
+  padding: 7px 10px;
   border-radius: 5px;
   position: sticky;
   top: 3px;
   font-size: 1.2rem;
   font-weight: 450;
   z-index: 8;
-  height: 40px;
+  height: 35px;
+  border: 1px solid var(--lightBlackBorderColor);
+  color: whitesmoke;
 }
 
 /* button to close comment page */
 #comment-cross-button{
-  height: 25px;
+  height: 100%;
   border: none;
   outline: none;
   background: transparent;
+  aspect-ratio: 1/1;
 }
 
 /* cut image */
 #comment-cross-button img{
   height: 100%;
+  width: 100%;
 }
 
 /*-- comment boxes container & boxes --*/
@@ -392,6 +438,20 @@ body{
   position: relative;
   z-index: 10;
 }
+
+/* Hiding the scroll bar */ 
+.container-of-boxes-of-comment{
+    overflow-y: scroll;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.container-of-boxes-of-comment::-webkit-scrollbar {
+    width: 0; /* For Chrome, Safari, and Opera */
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+
 
 .wrapper-inside-comment-boxes-container{
 	min-height: calc(100% + 70px);
@@ -555,3 +615,11 @@ body{
   }
 }
 /*==========================================*/
+
+
+@media(min-height: 200px) and (max-height: 400px){
+ #navbar-of-comment{
+   height: 30px;
+   padding: 4px 10px;
+ } 
+}

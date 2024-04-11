@@ -5,9 +5,9 @@ const dislikeButton = document.getElementById('dislike');
 // Span that contain likes Number
 let likeCounter = document.getElementById('likeSpan')
 // Url of liked button
-let urlOfLikedButton = '/images/liked-btn.png';
+let urlOfLikedButton = '/images/thumbed-icon-white-color.png';
 // url of liked button
-let urlOfLikeButton = '/images/like-btn.png';
+let urlOfLikeButton = '/images/thumb-icon-white-color.png';
 // Main container of actual comment section
 let mainCommentContainer = document.getElementById("comment-ka-main-container");
 // Default displaying comment
@@ -118,7 +118,7 @@ dislikeButton.addEventListener('click', async (e)=>{
 		// If post is already disliked 
 		if(dislikeButton.classList.contains('already_disliked')){
 		   dislikeButton.src = urlOfLikeButton;
-		   // removing class 'already_disliked' so that we can dislike it again
+		   // removing class 'already_disliked' so that we can disit again
 			 dislikeButton.classList.remove("already_disliked");
 		}
 		// Else, means if post is not disliked
@@ -451,6 +451,13 @@ containerOfBoardBoxes.addEventListener("click", async (e)=>{
 
 // Create new board functionality
 buttonToCreateNewBoard.addEventListener("click", async (e)=>{
+	// Getting board name from input field
+	let boardName = inputForCreateNewBoard.value;
+	// If input fiels is empty then return from here 
+	if(boardName == ""){
+	  return;
+	}
+	
 	// Getting width of create new board button
 	let boundingClient = buttonToCreateNewBoard.getBoundingClientRect();
 	/*
@@ -464,8 +471,6 @@ buttonToCreateNewBoard.addEventListener("click", async (e)=>{
 	// Unhiding the loader
 	loaderInsideCreateBoard.style.display = "flex";
 	
-	// Getting board name from input field
-	let boardName = inputForCreateNewBoard.value;
 	// This data will go through body of post request
 	let dataToSave = { 
 		 boardName : boardName,

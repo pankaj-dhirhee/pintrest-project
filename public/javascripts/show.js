@@ -467,11 +467,10 @@ function show_dropdown_menu_onclick_of_three_dots_of_image_box(){
 			  page_cover.addEventListener("click", hide_page_cover_and_dropdown);
         page_cover.addEventListener("scroll", hide_page_cover_and_dropdown);
  	   };
+   });
  });
-});
 }; // show_dropdown_menu_onclick_of_three_dots_of_image_box()
 //=============================================//
-
 
 
 
@@ -481,7 +480,7 @@ function show_dropdown_menu_onclick_of_three_dots_of_image_box(){
 function delete_button_event_listener(){
   // By clicking delete  button you can delete image or a post
   delete_button.addEventListener("click", async ()=>{
-    /* When text inside delete button would hide to dispaly the lopader then =>
+    /* When text inside delete button would hide to dispaly the loader then =>
        width of delete button will be decreased.
        These code make sure that its will will be same when hiding text &  displaying loadder.
     */
@@ -491,7 +490,7 @@ function delete_button_event_listener(){
     delete_button.querySelector(".btn-text").style.display = "none";
     loader_of_delete_btn.style.display = "flex"
     
-    // This api url has set when you clicked three dots
+    // This api url had set when you clicked three dots
     let api_urt = delete_button.dataset.deleteinfo;
     let get_request = await fetch(api_urt);
     let responce = await get_request.json();

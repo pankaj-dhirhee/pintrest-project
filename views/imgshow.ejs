@@ -17,7 +17,7 @@
 </head>
 <body>
 	
-<!-- Loader -->
+<!-- Loader of page -->
 <span class="loader-container loader-of-page">
    <div class="loader"></div>
 </span>
@@ -49,7 +49,7 @@
   		 <div class="nav-container-of-buttons">
 		  	 <button class="square-button" id="search-button">
 			  	 	 <a href="/search">
-			  	 	   <img src="/images/search.png"/>
+			  	 	   <img src="/images/search-icon-white-colour.png"/>
 			  	 	 </a>
 		  	 </button>
 		 		 <button class="square-button" id="logout-button">
@@ -64,41 +64,36 @@
  
  
  
- <!------------------------------------------->
- <!--        YOUR IMAGES SECTION            -->
- <!------------------------------------------->
+  <!------------------------------------------->
+  <!--        YOUR IMAGES SECTION            -->
+  <!------------------------------------------->
   <div class="image-container" data-userid="<%= user._id %>" data-boardname="<%= boardName %>">
-	 
-	 
-  	
-    
-	</div> 
+    <!--  Here images will be shown by javascript -->
+  </div> 
 	<!--=======================================-->
  
 	
 	
-	
 	<!------------------------------------------->
-    <!-- DROPDOWN MENU FOR IMAGE BOX THREE DOT -->
-    <!------------------------------------------->
+  <!-- DROPDOWN MENU FOR IMAGE BOX THREE DOT -->
+  <!------------------------------------------->
+  <!-- This will cover whole screen when dropdown menu would shown to avoid unwanted outside click -->
+  <div class="cover-outside-the-dropdown">
+    <div class="cover-scroller"></div>
+  </div>
     
-    <div class="cover-outside-the-dropdown">
-      <div class="cover-scroller"></div>
+  <div class="dropdown-menu-for-image-box">
+    <div class="wrapper">
+        <!-- 1. Delete button -->     
+        <button class="delete-btn">
+    			<span class="btn-text"> Delete this image </span>
+    			<div class="buttons-loader" id="loader-of-delete-btn">
+            <div class="loader"></div>
+          </div>         
+    	 </button>
     </div>
-    
-    <div class="dropdown-menu-for-image-box">
-     <div class="wrapper">
-         <!-- 1. Delete button -->     
-         <button class="delete-btn">
-    			 <span class="btn-text"> Delete this image </span>
-    			 <div class="buttons-loader" id="loader-of-delete-btn">
-             <div class="loader"></div>
-           </div>         
-    	   </button>
-     </div>
-    </div>
-	
-	
+  </div>
+  <!--=======================================-->
 	
 	
 	
@@ -109,22 +104,22 @@
 	  <div class="right">
 		    <button class="button-in-footer home-button">
 		    	<a href="/">
-		    		<img src="/images/home.png"/>
+		    		<img src="/images/home-icon-white-colour.png"/>
 		    	</a>
 		    </button>
 		    <button class="button-in-footer bell-button">
 		    	<a href="/search">
-		    		<img src="/images/search.png"/>
+		    		<img src="/images/search-icon-white-colour.png"/>
 		    	</a>
 		    </button>
 		    <button class="button-in-footer message-button">
 		    	<a href="/inbox">
-		    		<img src="/images/message.png"/>
+		    		<img src="/images/inbox-icon-white-colour.png"/>
 		    	</a>
 		    </button>
 		    <button class="profile">
 		    	<a href="/profile">
-		    		<img src="/images/profile.png"/>
+		    		<img src="/images/profile-icon-white-colour.png"/>
 		    	</a>
 		    </button>
 	  </div>
@@ -134,8 +129,7 @@
  
  
 
-
-<script src="/javascripts/eruda-console.js"></script>
+<!-- <script src="/javascripts/eruda-console.js"></script> -->
 <!-- Linking to this page's javascript -->
 <script src="/javascripts/feed.js"></script>
 <!-- Linking to navbar javascript -->

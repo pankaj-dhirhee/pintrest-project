@@ -16,7 +16,9 @@ router.get('/feed/:limit/:page', async (req, res, next)=>{
 	
 	
 	// Getting post data with skip and limit values
-  let posts = await postModel.find().skip(skip).limit(limit);
+  let posts = await postModel.find({
+    boardName: "Your uploads"
+  }).skip(skip).limit(limit);
   // This will be sent in responce so that we can make sure responce is ok
   // Post data will be sent in data key inside this object
   let object = {

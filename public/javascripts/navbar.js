@@ -21,15 +21,16 @@ const activePage = window.location.pathname;
 
 //-- Part 1 => Navigator to navbar
 navLinks.forEach((link)=>{
-	if(link.href.includes(`${activePage}`)){
+	if(link.href === window.location.origin + activePage || (activePage === '/' && link.pathname === '/')){
 		link.classList.add('footer-indigator-on');
+		console.log("activePage => " + activePage)
 	}
 });
 
 
-//-- Part 1 => Navigator to footer
+//-- Part 2 => Navigator to footer
 footerLinks.forEach((link)=>{
-	if(link.href.includes(`${activePage}`)){
+	if(link.href === window.location.origin + activePage || (activePage === '/' && link.pathname === '/')){
 	  link.classList.add('footer-indigator-on');
 	}
 });

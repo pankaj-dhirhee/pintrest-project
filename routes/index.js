@@ -99,6 +99,7 @@ router.get('/username/:query', async (req, res)=>{
 	let regex = new RegExp(`${req.params.query}`, 'i');
 	const users = await postModel.find({
 		imageText: regex,
+		boardName: "Your uploads"
 	});
 	res.json(users);
 });

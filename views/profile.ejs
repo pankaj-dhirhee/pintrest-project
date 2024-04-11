@@ -15,17 +15,12 @@
 </head>
 <body>
 	
-<!-- Loader -->
+<!-- Loader of page -->
 <span class="loader-container loader-of-page">
    <div class="loader"></div>
 </span>
 
 <main class="main-container-of-page">
-  
-    
-    
-    
-    
 	<!------------------------------------------->
   <!--            NAVBAR SECTION             -->
   <!------------------------------------------->
@@ -52,7 +47,7 @@
   		 <div class="nav-container-of-buttons">
 		  	 <button class="square-button" id="search-button">
 			  	 	 <a href="/search">
-			  	 	   <img src="images/search.png"/>
+			  	 	   <img src="/images/search-icon-white-colour.png"/>
 			  	 	 </a>
 		  	 </button>
 		 		 <button class="square-button" id="logout-button">
@@ -100,7 +95,9 @@
 				 
 				 <div class="container-of-buttons">
 						<button class="button">
-							Edit profile
+						  <a href="/api/user/logout">
+						    Logout here
+						  </a>
 						</button>
 						<button class="button create-post-btn" id="upload-image">
 						      <span> Add a post </span>
@@ -152,47 +149,40 @@
 						       </span>
 				       	</div>
 				       	<div class="right dot" data-userid="<%= user._id %>" data-boardname="<%= elem.boardName %>" data-indexofdotbtn="<%= index %>">
-	        	      <img src="/images/three-dots.png" class="dot three-dot-image" data-boardname="<%= elem.boardName %>" data-userid="<%= user._id %>" data-indexofdotbtn="<%= index %>"/>
+	        	      <img src="/images/three-dots.png" class="dot three-dot-image" data-boardname="<%= elem.boardName %>" data-userid="<%= user._id %>" data-indexofthreedotimage="<%= index %>"/>
 	              </div>
 		       </div>
 	      </div> 	 
     <% }); %>
-    
-    
   <% } %>
-  
-  
-  <!------------------------------------------->
-  <!-- DROPDOWN MENU FOR IMAGE BOX THREE DOT -->
-  <!------------------------------------------->
-  <div class="dropdown-menu-for-image-box">
-   <div class="wrapper">
-       <!-- 1. Delete button -->     
-       <button class="delete-btn">
-  			 <span class="btn-text"> Delete this image </span>
-  			 <div class="buttons-loader" id="loader-of-delete-btn">
-           <div class="loader"></div>
-         </div>         
-  	   </button>
-   </div>
-  </div>
-  
-  
- 
- 
  </div>
  <!--=======================================-->
 
 	
 	
+ <!------------------------------------------->
+ <!-- DROPDOWN MENU FOR IMAGE BOX THREE DOT -->
+ <!------------------------------------------->
+ <!-- This will cover whole screen when dropdown menu would shown to avoid unwanted outside click -->
+ <div class="cover-outside-the-dropdown">
+   <div class="cover-scroller"></div>
+ </div>
+    
+ <div class="dropdown-menu-for-image-box">
+   <div class="wrapper">
+      <!-- 1. Delete button -->     
+      <button class="delete-btn">
+    		<span class="btn-text"> Delete this image </span>
+    		<div class="buttons-loader" id="loader-of-delete-btn">
+          <div class="loader"></div>
+        </div>         
+    	</button>
+   </div>
+ </div>
+ <!--=======================================-->
  
  
  
- 
- 
-	
-	
-	
  <!------------------------------------------->
  <!--     FOOTER NAVIGATION SECTION         -->
  <!------------------------------------------->
@@ -200,31 +190,27 @@
 	 <div class="right">
 		   <button class="button-in-footer home-button">
 		    <a href="/">
-		    	 <img src="images/home.png"/>
+		    	 <img src="images/home-icon-white-colour.png"/>
 		    </a>
 		    </button>
 		    <button class="button-in-footer bell-button">
 		    	<a href="/search">
-		    		<img src="images/search.png"/>
+		    		<img src="images/search-icon-white-colour.png"/>
 		    	</a>
 		    </button>
 		    <button class="button-in-footer message-button">
 		    	<a href="/inbox">
-		    		<img src="images/message.png"/>
+		    		<img src="images/inbox-icon-white-colour.png"/>
 		    	</a>
 		    </button>
 		    <button class="profile">
 		    	<a href="/profile">
-		    		<img src="images/profile.png"/>
+		    		<img src="images/profile-icon-white-colour.png"/>
 		    	</a>
 		    </button>
 	  </div>
  </footer>
  <!--=======================================-->
- 
- 
-
- 
 </main>
 
 
@@ -263,11 +249,8 @@
  
  
  
- 
-<!-- Used to show console in browser -->
-
-<script src="/javascripts/eruda-console.js"></script>
-
+<!-- Automatically show eruda console -->
+<!-- <script src="/javascripts/eruda-console.js"></script> -->
 <!-- Linking to this page's javascript -->
 <script src="/javascripts/profile.js"></script>
 <!-- Linking to navbar javascript -->

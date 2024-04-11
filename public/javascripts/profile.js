@@ -15,7 +15,7 @@ let loaderContainer = document.querySelector(".loader-container");
 // Form or upload image
 let form = document.querySelector(".uplod-image-form");
 // Loader container inside upload image submit btn
-let LoaderInsideUploadImageSubmitBtn = document.querySelector(".loader-container-inside-upload-image-submit-btn")
+let LoaderInsideUploadImageSubmitBtn = document.querySelector(".loader-container-inside-upload-image-submit-btn");
 // Post image option 
 let postsOption = document.getElementById("posts-option");
 // Saved iamge optioon
@@ -26,22 +26,16 @@ let uploadProfileImageForm = document.querySelector(".form-profile-image");
 let profilePictt = document.querySelector("#up-pen");
 // Input type file inside hidden form
 let inputForProfileImage = document.querySelector(".form-profile-image input");
-// caption inside image box
-let caption = document.querySelectorAll(".caption");
 // Close button inside delete button
-let closeBtnInDeleteBtn = document.querySelector(".close-delete-btn")
-// A container inside delete button that contains text and a delete icon
-let delete_button = document.querySelector(".delete-btn")
-
-
+let closeBtnInDeleteBtn = document.querySelector(".close-delete-btn");
+// Delete button inside dropdown menu
+let delete_button = document.querySelector(".delete-btn");
+// Dropdown menu that will be shown onclick of three dotd inside image box
 let dropdown_menu_for_image_box = document.querySelector(".dropdown-menu-for-image-box");
-
-// This is direct child of main container of delete button 
-delBtn = document.querySelector('.delete-btn')
+// This will cover the whole screen when dropdown menu will be shown to prevent action if anchor tag and by clicking it user can hide dropdown menu
+let page_cover = document.querySelector(".cover-outside-the-dropdown");
 // Loader inside delete button container5
-let loader_of_delete_btn = document.getElementById("loader-of-delete-btn")
-// Selecting three dots of all image box 
-let dot = document.querySelectorAll(".dot");
+let loader_of_delete_btn = document.getElementById("loader-of-delete-btn");
 // Image tag of profile image 
 let profileImageTag = document.getElementById("profile-image-tag");
 // Images container
@@ -57,7 +51,6 @@ let imagesContainer = document.querySelector(".image-container");
 UploadImageBtn.addEventListener("click", ()=>{
   uploadSection.style.display = 'flex';
   mainContainerOfPage.style.opacity = '0.1';
-  console.log("Upload image event listener")
 });
 
 // Hide upload cart on click of close button inside upload card
@@ -82,7 +75,7 @@ uploadForm.addEventListener("submit", async (e)=>{
   if(imageText != "" && imageDescription != ""){
 	  submitBtn.style.display = 'none';
 	  LoaderInsideUploadImageSubmitBtn.style.display = "flex";
-	  
+            
 	  // Making new form data
 	  const formData = new FormData();
 	  // Pushing the given file to form data as name = file
@@ -92,13 +85,13 @@ uploadForm.addEventListener("submit", async (e)=>{
 	  // Pushing the given description to form data as name = description
 	  formData.append('description', imageDescription);
 	  
-	  // Sending Form data in post request
+	  	  // Sending Form data in post request
 	  const data = await fetch('/upload/Your uploads', {
 	  	method: "POST",
 	    body: formData,
 	  });
 	  const responce = await data.json();
-	  
+	         
 	  // Getting Image counter inside yourUploads image box or first imageCounter
 	  let imageCounterInsideIt = document.querySelector(`[data-counterspan~='your-uploads']`);
 	  /*
@@ -114,9 +107,10 @@ uploadForm.addEventListener("submit", async (e)=>{
 	  	let userId = profileImageTag.dataset.userid;
 	  	// Getting name of new uploaded file friom responce
 	  	let newUploadedFile = responce.newUploadedFile;
+	  	let number_of_image_box = document.querySelectorAll(".image-box").length;
 	  	
 	  	imagesContainer.innerHTML += `
-	  	  <div class="box image-box">
+	  	  <div class="box image-box" data-imageboxindex="${number_of_image_box}">
 		       <a href="/show/Your uploads">
 		           <img src="/images/uploads/${newUploadedFile}"/>
 		       </a>
@@ -130,13 +124,15 @@ uploadForm.addEventListener("submit", async (e)=>{
 						       		Images 
 						       </span>
 				       	</div>
-				       	<div class="right dot" data-userid="${userId}" data-boardname="Your uploads">
-	        	      <img src="/images/three-dots.png" class="dot" data-boardname="Your uploads" data-userid="${userId}"/>
+				       	<div class="right dot" data-userid="${userId}" data-boardname="Your uploads" data-indexofdotbtn="${number_of_image_box}">
+	        	      <img src="/images/three-dots.png" class="dot three-dot-image" data-boardname="Your uploads" data-userid="${userId}" data-indexofthreedotimage="${number_of_image_box}"/>
 	              </div>
 		       </div>
 	      </div> 	 
 	  	`;
 	  	imageCounterInsideIt = document.querySelector(`[data-counterspan~='Your uploads']`);
+	  	// This function will add event listener to three button inside all image box
+	  	show_dropdown_menu_onclick_of_three_dots_of_image_box();
 	  }
 	  
 	  
@@ -219,117 +215,139 @@ inputForProfileImage.addEventListener("change", async ()=>{
 
 
 //---------------------------------------------//
-//         DELETE BOARD FUNCTIONALITY          //
+// SHOWING DROPDOWN MENU ONCLICK OF THREEE DOT //
 //---------------------------------------------//
-/* When user click on three dots then =>
-   1. It will delete the board  and all posts inside it.
+/* When user click on three dots indide image boxes then =>
+   1. Dropdown menu will be displayed
 */
+function show_dropdown_menu_onclick_of_three_dots_of_image_box(){
+  /* caption inside image box. It ontains =>
+     left and right side.
+     In left side there is image title or image text.
+     In right side there is image of three dots
+  */ 
+	let caption = document.querySelectorAll(".caption");
+	// Getting all elements inside image box that contains class 'dot'
+	let dot = document.querySelectorAll(".dot");
+	// Getting dropdown menu
+  let dropdown_menu_for_image_box = document.querySelector(".dropdown-menu-for-image-box");
+  
+  caption.forEach((image)=>{ 
+    image.addEventListener("click", (e)=>{
+   	   // Checking elment if it contains class 'dot'
+  	   let classContain = e.target.classList.contains("dot");
+  	   // Getting boardNqme from our custom attribute
+  	   let boardName = e.target.dataset.boardname;
+  	   // Getting userId from our custom attribute
+  	   let userId = e.target.dataset.userid;
+  	 	 // If clicked element contains class 'dot', then perform delete functionality
+  	 	 if(classContain){
+          /* Setting a url in custom attribute to delete button,
+  	         This url will be used to delete the correct board.
+  	      */	 	   
+  		 		delete_button.dataset.deleteinfo=`/api/deleteboard/${userId}/${boardName}`;
+  		 		/* Setting index of clicked element to delete button.
+  		 		   This index will help to remove the correct image box, from image boxes container.
+  		 		*/
+  		 		delete_button.dataset.clickeddotindex = e.target.dataset.indexofdotbtn;
+  			  // Getting index of clicked element or three dot from its custom attribute
+  			  let index_of_clicked_dot = e.target.dataset.indexofdotbtn;
+  			  // Getting clicked three dot image tag
+  			  let clicked_image_three_dot = document.querySelector(`[data-indexofthreedotimage="${index_of_clicked_dot}"]`);
+  			  // Getting boundingClient of clicked three dot image tag to show dropdown menu in correct position
+  		    let bounting_client_of_clicked_three_dot = clicked_image_three_dot.getBoundingClientRect();
+  		    // Now show the dropdown menu
+  			  dropdown_menu_for_image_box.style.display = "inline-block"
+  			  // Unhiding the page cover. this will avoid anchor click and by clicking it dropdown will be hidden
+  			  page_cover.style.display = "block";
+  			  // Getting value of left position of three dot image tag
+  			  let left = bounting_client_of_clicked_three_dot.left
+  			  // Getting value of top position of three dot image tag
+  			  let top = bounting_client_of_clicked_three_dot.top
+  			  /* Getting value of  right side position of three dot image tag
+  			     Actually in case of getting value of right side, boundingClient give the sum of 'left value' and 'width of given element'
+  			     So to get actial value of right side we do => 'window.innerWidth - bounting_client_of_clicked_three_dot.right'
+  			  */
+  			  let right = window.innerWidth - bounting_client_of_clicked_three_dot.right;
+  			  
+  			  /* If value of right side is less than 100px, means there is no space in right side to display the dropdown menu.
+  			     Then dispaly the dropdown menu in left side of three dots
+  			  */
+  			  // Here, displaying dropdown menu in left side of three dot.
+  			  if(right < 100){
+  			    /* Setting value of left position to auto because =>
+  			       If value of left side would already set by else condition and,
+  			       We will here set value of right position, then dropdown menu will be stretched.
+  			    */
+  			    dropdown_menu_for_image_box.style.left = "auto";
+  			    // Setting right position of dropdown menu
+  			    dropdown_menu_for_image_box.style.right = right +  "px";
+  			    // Setting top position of dropdown menu
+  			    dropdown_menu_for_image_box.style.top = top +  "px";
+  			  }
+  			  // Here, displaying dropdown menu in right side of three dot.
+  			  else{
+  			    // Setting value of right position to auto to avoid stretching od dropdown menu
+  			    dropdown_menu_for_image_box.style.right = "auto";
+  			    dropdown_menu_for_image_box.style.left = left +  "px";
+  			    dropdown_menu_for_image_box.style.top = top +  "px";
+  			  }
+  			  // This finction will hide the dropdown menu & page cover & etc...
+  			  function hide_page_cover_and_dropdown(){
+  			    dropdown_menu_for_image_box.style.display = "none";
+  	 	      page_cover.style.display = "none";
+  			    page_cover.removeEventListener("click", hide_page_cover_and_dropdown);
+  			    page_cover.removeEventListener("scroll", hide_page_cover_and_dropdown);
+  			  }
+  			  page_cover.addEventListener("click", hide_page_cover_and_dropdown);
+          page_cover.addEventListener("scroll", hide_page_cover_and_dropdown);
+   	   }
+    });
+  });
+}; // show_dropdown_menu_onclick_of_three_dots_of_image_box()
+show_dropdown_menu_onclick_of_three_dots_of_image_box()
+//=============================================//
 
-caption.forEach((image)=>{ 
- image.addEventListener("click", (e)=>{
- 	   // Checking elment if it contains class 'dot'
-	   let classContain = e.target.classList.contains("dot");
-	   // Getting boardNqme from our custom attribute
-	   let boardName = e.target.dataset.boardname;
-	   // Getting userId from our custom attribute
-	   let userId = e.target.dataset.userid;
-	 	 // If clicked element contains class 'dot', then perform delete functionality
-	 	 if(classContain){
-	 	   
-        	 	   
-		 		delete_button.dataset.deleteinfo=`/api/deleteboard/${userId}/${boardName}`;
-		 		delete_button.dataset.clickeddotindex = e.target.dataset.indexofdotbtn;
-			  //show the delete box
-			  let index_of_clicked_dot = e.target.dataset.indexofdotbtn;
-			  console.log("index_of_clicked_dot " + index_of_clicked_dot);
-			  let clicked_image_three_dot = document.querySelectorAll(".three-dot-image")[index_of_clicked_dot];
-			  console.log("clicked_image_three_dot " + JSON.stringify(clicked_image_three_dot));
-			  
-		  let bounting_client_of_clicked_three_dot = clicked_image_three_dot.getBoundingClientRect();
-			  dropdown_menu_for_image_box.style.display = "inline-block"
-			  //clicked_image_three_dot.style.border = "2px solid red"
-			 console.log(bounting_client_of_clicked_three_dot)
-			  let left = bounting_client_of_clicked_three_dot.left
-			  let top = bounting_client_of_clicked_three_dot.top
-			  let right = window.innerWidth - bounting_client_of_clicked_three_dot.right;
-			  console.log("right" + right);
-			  console.log("left" + left)
-			  if(right < 100){
-			    
-			    console.log("If satatement");
-			    dropdown_menu_for_image_box.style.left = "auto";
-			    dropdown_menu_for_image_box.style.right = right +  "px";
-			    dropdown_menu_for_image_box.style.top = top +  "px";
-			    
-			  }else{
-			    console.log("else statement");
-			    dropdown_menu_for_image_box.style.right = "auto";
-			    dropdown_menu_for_image_box.style.left = left +  "px";
-			    dropdown_menu_for_image_box.style.top = top +  "px";
-			    
-			  }
-			  
-			  
-			  
-			 // Thius function will add event listener to the delete button  
-			 delete_button_event_listener();
-			 
-			 
-	 	   mainContainerOfPage.addEventListener("scroll", () =>{
-	 	        delete_button.removeEventListener("click", ()=>{ });
-	 	      dropdown_menu_for_image_box.style.display = "none";
-			  mainContainerOfPage.removeEventListener("scroll", ()=>{ });
-	
-	       
-			  
-			  
-			  
-	 	   });
-	 	   
-	 	   
-	 	   
-			  //giving bottom position to con of delBtn
-			  //delBox.style.bottom = "1%";
- 	   }
- });
-});
 
 
-// Closing delete button
-/*closeBtnInDeleteBtn.addEventListener('click', (e)=>{
-	delBox.style.display = 'none';
-	
-});*/
-
-
-
-
-
+//---------------------------------------------//
+//   HANDLING DELETE BUTTON OF DROPDOWN MENU   //
+//---------------------------------------------//
 function delete_button_event_listener(){
-// When clicking on container inside deelete btn, delete the board
-delete_button.addEventListener("click", async ()=>{
-  let bounding_client_delete_button = delete_button.getBoundingClientRect();
-  delete_button.style.height = bounding_client_delete_button.height + "px";
-  delete_button.style.width = bounding_client_delete_button.width + "px";
-  
-  
-  delete_button.querySelector(".btn-text").style.display = "none";
-  loader_of_delete_btn.style.display = "flex"
-  let api_urt = delete_button.dataset.deleteinfo;
-  
-  let get_request = await fetch(api_urt);
-  let responce = await get_request.json();
-  
-  if(responce.status == "success"){
-    let index_of_clicked_dot = delete_button.dataset.clickeddotindex;
-    let element_to_be_removed = document.querySelector(`[data-imageboxindex~="${index_of_clicked_dot}"]`);
+  // By clicking delete button you can delete a board
+  delete_button.addEventListener("click", async ()=>{
+    /* When text inside delete button would hide to dispaly the loader then =>
+       width of delete button will be decreased.
+       These code make sure that its will will be same when hiding text &  displaying loadder.
+    */
+    let bounding_client_delete_button = delete_button.getBoundingClientRect();
+    delete_button.style.height = bounding_client_delete_button.height + "px";
+    delete_button.style.width = bounding_client_delete_button.width + "px";
+    delete_button.querySelector(".btn-text").style.display = "none";
+    loader_of_delete_btn.style.display = "flex"
     
-    element_to_be_removed.remove();
-    delete_button.querySelector(".btn-text").style.display = "inline";
-    loader_of_delete_btn.style.display = "none";
-    dropdown_menu_for_image_box.style.display = "none";
+    // This api url had set when you clicked three dots
+    let api_urt = delete_button.dataset.deleteinfo;
+    let get_request = await fetch(api_urt);
+    let responce = await get_request.json();
     
-  }
-});
-
-}  // Delet btn evnt listyener finction end
+    // If responce status id success, then the board is deleated succesfully
+    if(responce.status == "success"){
+      // this block of code is removing the deleated board from the image container
+      let index_of_clicked_dot = delete_button.dataset.clickeddotindex;
+      let element_to_be_removed = document.querySelector(`[data-imageboxindex~="${index_of_clicked_dot}"]`);
+      element_to_be_removed.remove();
+      
+      // Now unhide the text inside delete button
+      delete_button.querySelector(".btn-text").style.display = "inline";
+      // Hide the loader of delete button
+      loader_of_delete_btn.style.display = "none";
+      // Hide the dropdown menu
+      dropdown_menu_for_image_box.style.display = "none";
+      // This is a div element that covers whole page when three dot is clicke to avoid click of anchor tags
+      page_cover.style.display = "none";
+    };
+  });
+}; // function delete_button_event_listener()
+delete_button_event_listener()
+//=============================================//

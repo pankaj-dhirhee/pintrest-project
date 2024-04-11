@@ -47,10 +47,12 @@ var checkUserAuth = async (req, res, next) =>{
 	  // If any error acured then send that, failed, Unauthorized User
 	  catch(error){
 	    console.log(error);
-	    res.status(401).send({
+	    res.clearCookie('authorization')
+	    res.redirect("/api/user/signin");
+	    /* res.status(401).send({
 	      "status": "failed",
 	    	"message": "Unauthorized User"
-	    });
+	    }); */
 	  }
 	} // If condition
 	

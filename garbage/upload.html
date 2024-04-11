@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Progress</title>
+</head>
+<body>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload</button>
+    <div id="progress"></div>
+
+    <script>
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    // No need to set Content-Type, fetch will automatically set it for FormData
+                },
+                // Enable progress tracking
+                // Note: This feature is currently experimental, check browser compatibility
+                signal: new AbortController().signal
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('File uploaded successfully');
+            })
+            .catch(error => {
+                alert('Error uploading file: ' + error.message);
+            });
+            
+            // Track upload progress
+            const progressBar = document.getElementById('progress');
+            progressBar.innerText = 'Upload Progress: 0%';
+
+            const updateProgress = (event) => {
+                if (event.lengthComputable) {
+                    const percentComplete = (event.loaded / event.total) * 100;
+                    progressBar.innerText = `Upload Progress: ${percentComplete.toFixed(2)}%`;
+                }
+            };
+
+            // Add event listener to track progress
+            formData.get('file').addEventListener('progress', updateProgress);
+        }
+    </script>
+</body>
+</html>

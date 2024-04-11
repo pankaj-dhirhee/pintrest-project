@@ -1,7 +1,10 @@
 const UserModel = require('../models/User.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const transporter = require('../config/emailConfig.js');
+const {
+   transporter, 
+   brevo_email_transporter
+} = require('../config/emailConfig.js');
 
 // This is a class all the functions are inside this 
 class UserController{
@@ -66,12 +69,13 @@ class UserController{
 				    try{
         	    // Send Email to user who wants to reset password
             	info = await transporter.sendMail({
-            		from: process.env.EMAIL_FROM,
+            		from: process.env.GMAIL_SMTP_EMAIL_FROM,
             	  to: saved_user.email,
             	  subject: "Email verification link",
             	  html: `<a href=${email_verify_link}> Click Here </a> to verify your email`
             	});
           	} catch (error){
+          	  console.log(error)
           	  return res.send({
           	    "status": "failed",
           			"message": "Please give your valid email, so that we can send verify email link",
@@ -304,7 +308,7 @@ class UserController{
       	try{
         	// Send Email to user who wants to reset password
         	info = await transporter.sendMail({
-        		from: process.env.EMAIL_FROM,
+        		from: process.env.GMAIL_SMTP_EMAIL_FROM,
         	  to: user.email,
         	  subject: "Your password reset Link",
         	  html: `<a href=${link}> Click Here </a> to reset your password`
@@ -422,7 +426,7 @@ class UserController{
 	 try{
       // Send Email to user who wants to reset password
       info = await transporter.sendMail({
-        from: process.env.EMAIL_FROM,
+        from: process.env.GMAIL_SMTP_EMAIL_FROM,
         to: user_from_db.email,
         subject: "Email verification link",
         html: `<a href=${email_verify_link}> Click Here </a> to verify your email`

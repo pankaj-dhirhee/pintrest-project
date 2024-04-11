@@ -4,7 +4,6 @@
 	box-sizing: border-box;
 }
 body{
-	background-color: #262629;
 	color: whitesmoke;
 	user-select: none;
 }
@@ -28,7 +27,7 @@ body{
 	width: 98vw;
 	margin-left: 1vw;
 	max-width: 1500px;
-	background: #313131;
+	background: #212121;
 	margin-top: 48px;
 	border-radius: 5px;
 	display: flex;
@@ -315,7 +314,6 @@ body{
 /*-------------------------------------------*/
 .image-container{
   padding-top: 20px;
-  min-height: 300vh;
   align-items: start;
 }
 /*==========================================*/
