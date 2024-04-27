@@ -1,0 +1,14 @@
+.small-buttons-like-menubar{
+  height: 100%;
+  border: 1px solid var(--border-color-dark-theme);
+  border-radius: 5px;
+  padding: 5px;
+  background-color: var(--element-color-dark-theme);
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.small-buttons-like-menubar img{
+  height: 100%;
+}

@@ -1,13 +1,16 @@
 const UserModel = require('../models/User.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const {
-   transporter, 
-   brevo_email_transporter
-} = require('../config/emailConfig.js');
+const {transporter, brevo_email_transporter} = require('../config/emailConfig.js');
+const send_responce = require("../helpers/send-responce.js");
+const functions_needed_for_google_auth = require("../utils/functions-related-to-google-auth.js");
+
+
 
 // This is a class all the functions are inside this 
 class UserController{
+ // Authentication System 1 => Local authentication
+  
  // 1. Function to register the user
  static userRegistration = async (req, res) => {
 	 try{
@@ -49,6 +52,7 @@ class UserController{
 				  	  fullname: fullname,
 				  	  email: email,
 				  	  password: hashPassword,
+				  	  accountType: "Local",
 				  	  boards: ["Your uploads"]
 				    });
 				    await doc.save();
@@ -231,6 +235,13 @@ class UserController{
  
  // 3. Function to change the password	
  static changeUserPassword = async (req, res) =>{
+   const requested_user = req.user;
+   console.log(`requested_user: ${requested_user}`)
+   if(requested_user.accountType == "Google"){
+     return send_responce(res, 409, "Failed", "This is a google account, Here is no system of password")
+   }
+   
+   
  	 // Getting password and confirm password from request body
    const {password, password_confirmation} = req.body;
    
@@ -289,6 +300,12 @@ class UserController{
   if(email){
   	// Getting user from database by given email
     const user = await UserModel.findOne({email: email});
+    
+    // If the account type is Google then we cannot change password
+    if(user.accountType == "Google"){
+      return send_responce(res, 409, "Failed", "This is a google account, Here is no system of password")
+    }
+    
       // If user found then...
       if(user){
       	// Getting secret key for jwt token from invironment variable
@@ -484,9 +501,189 @@ class UserController{
  
  // 9. Function to logout the user
  static logout_the_user = async (req, res) => {
+   if(req.session){
+		 req.session.destroy(); 
+	 }
    res.clearCookie("authorization");
    res.redirect("/api/user/signin");
  } // End of logout_the_user function
-} // End of class UserController
+ 
+ 
+ //=============================================//
+ 
+ 
+ // Authentication System 2 => Google authentication
+
+ // 1. Register user with google oauth
+ static google_callback_handler = async (req, res) => {
+   const code = req.query.code;
+   
+   try{
+     const google_redirect_uri = process.env.GOOGLE_CALLBACK_URL;
+     
+     const {id_token, access_token} = await functions_needed_for_google_auth.getGoogleOAuthTokens({
+       code, google_redirect_uri
+     });
+     const googleUser = await functions_needed_for_google_auth.getGoogleUser({
+       id_token, access_token
+     });
+     /* googleUser looks like this 
+        {
+          "googleUser": {
+            "id": "1234567890",
+            "email": "useremail@gmail.com",
+            "verified_email": true,
+            "name": "User's full name",
+            "given_name": "It is username",
+            "family_name": "Here will be surname",
+            "picture": "Url of user's profile image"
+          }
+        } 
+     */
+     
+     
+     // Getting the user from mongodb with given email 
+     const user_in_db_with_given_email = await UserModel.findOne({
+       email: googleUser.email
+     });
+     // If user found with the given email, then give a responce and return from here
+     if(user_in_db_with_given_email){
+       return send_responce(
+         res, 
+         409, 
+         "failed", "Email already exists. Try again with different google account"
+       );
+     };
+     
+     
+     // If the given email of the user is not verified by google then return with a responce
+     if(googleUser.verified_email != true){
+       return send_responce(
+         res, 
+         409, 
+         "failed", "Your email verified. Try again with different google account or go to your google account and verify your email"
+       );
+     };
+     
+     
+     // Preparing a document of user that will be inserted to database
+     const document_to_be_inserted_in_db = new UserModel({
+       username: googleUser.given_name,
+			 fullname: googleUser.name,
+			 email: googleUser.email,
+			 password: "No password bacause this is google account",
+			 accountType: "Google",
+			 boards: ["Your uploads"],
+			 isEmailAuthenticated: true,
+     });
+     await document_to_be_inserted_in_db.save();
+      
+      
+     const saved_user_from_db = await UserModel.findOne({
+       email: googleUser.email
+     });
+     
+     // Generating JWT token to set in cookie, contains user-id-of-db
+		 const token = jwt.sign({
+		   userID: saved_user_from_db._id
+		 }, process.env.JWT_SECRET_KEY, { expiresIn: '60d' });
+		 
+     // Setting token as cookie to client browser for 60 days
+		 res.cookie('authorization', `Bearer ${token}`, {
+			 expires: new Date(Date.now() + (60 * 24 * 60 * 60 * 1000)), 
+			 httpOnly: true
+		 });
+     
+     res.redirect("/api/user/redirect-to-profile-page");
+     // res.redirect("/profile");
+   }catch(error){
+     console.log(`[ ${error}, "Failed to authorize google user while registration"]`)
+     return res.redirect("/api/user/signin")
+   }; 
+ }; // End of google_callback_handler function
+ 
+ 
+ 
+ // 2. Login user with google
+ static login_with_google = async  (req, res) => {
+   console.log("From: Google login route");
+   const code = req.query.code;
+   
+   
+   
+   try{
+     // This session contains a user object. We are destroying it
+     if(req.session){
+			req.session.destroy(); 
+		 }
+     
+     const google_redirect_uri = process.env.GOOGLE_CALLBACK_URL_FOR_LOGIN;
+     const {id_token, access_token} = await functions_needed_for_google_auth.getGoogleOAuthTokens({
+       code, google_redirect_uri
+     });
+     const googleUser = await functions_needed_for_google_auth.getGoogleUser({
+       id_token, access_token
+     });
+     /* googleUser looks like this 
+        {
+          "googleUser": {
+            "id": "1234567890",
+            "email": "useremail@gmail.com",
+            "verified_email": true,
+            "name": "User's full name",
+            "given_name": "It is username",
+            "family_name": "Here will be surname",
+            "picture": "Url of user's profile image"
+          }
+        } 
+     */
+     
+     
+     // If the given email of the user is not verified by google then return with a responce
+     if(googleUser.verified_email != true){
+       return send_responce(
+         res, 
+         409, 
+         "failed", "Your email verified. Try again with different google account or go to your google account and verify your email"
+       );
+     };
+     
+     
+     // Getting user from db with then information given by the google
+     const saved_user_from_db = await UserModel.findOne({
+       email: googleUser.email
+     });
+     
+     // If user did not found in db then send failed message 
+     if(!saved_user_from_db){
+       return send_responce(
+         res, 
+         409, 
+         "failed", "This account is not registered. First resister it"
+       );
+     };
+     
+     
+     // Generating JWT token to set in cookie, contsins user-id-of-db
+		 const token = jwt.sign({
+		   userID: saved_user_from_db._id
+		 }, process.env.JWT_SECRET_KEY, { expiresIn: '60d' });
+			
+     // Setting token as cookie to client browser for 60 days
+		 res.cookie('authorization', `Bearer ${token}`, {
+			 expires: new Date(Date.now() + (60 * 24 * 60 * 60 * 1000)), 
+			 httpOnly: true
+		 });
+     
+     res.redirect("/api/user/redirect-to-profile-page")
+     // res.redirect("/profile");
+   }catch(error){
+     console.log(error)
+     console.log(`[ ${error}, "Failed to login with google"]`);
+     return res.redirect("/api/user/signin");
+   }; 
+ }; // End of login_with_google function
+ 
+}; // End of class UserController
 
 module.exports = UserController;

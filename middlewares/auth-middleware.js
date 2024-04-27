@@ -32,6 +32,7 @@ var checkUserAuth = async (req, res, next) =>{
 		 
 		  // Getting user by it's id
 		  let user = await UserModel.findById(userID).select('-password');
+		 
 		  req.user = user;
 		  req.session.user = user;
 		  

@@ -24,6 +24,12 @@ const userSchema = new mongoose.Schema({
 	 	 type: String,
 	 	 default: 'blue-backgroung.jpeg'
 	},
+	accountType: {
+	  type: String,
+	  default: "Local",
+	  required: true,
+	  trim: true
+	},
 	posts:[{
 	 	type: mongoose.Schema.Types.ObjectId,
 	 	ref: 'Post',

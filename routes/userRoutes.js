@@ -5,7 +5,6 @@ const checkUserAuth = require('../middlewares/auth-middleware.js');
 const jwt = require('jsonwebtoken');
 
 
-
 // Route level middleware to protect the route =>
 // 1. applying checkUserAuth middleware to change-password route
 router.use('/changepassword', checkUserAuth);
@@ -29,8 +28,10 @@ router.post('/login', UserController.userLogin);
 router.post('/send-reset-password-email', UserController.sendUserPasswordResetEmail);
 // 6. Route to reset the user's password
 router.post('/reset-password/:id/:token', UserController.userPasswordReset);
-// 7. Route to logout the user
-router.get('/logout', UserController.logout_the_user);
+// 7. Route to resgister the use with google
+router.get("/callback/google", UserController.google_callback_handler)
+// 8. Route to login user with google 
+router.get("/callback/google/login", UserController.login_with_google)
 
 
 
@@ -39,13 +40,19 @@ router.get('/logout', UserController.logout_the_user);
 router.post('/changepassword', UserController.changeUserPassword);
 // 2. Route to get-data-of-logged-in-user
 router.get('/loggeduser', UserController.loggedUser);
+// 3. Route to logout the user
+router.get('/logout', UserController.logout_the_user);
 
 
 
 // Static route for rendering different pages
 // 1. Rendering sign in page it itself contain login, reset-password etc.. forms
 router.get("/signin", (req, res)=>{
-	res.render("sign-in");
+	res.render("sign-in", {
+	  redirect_uri: process.env.GOOGLE_CALLBACK_URL,
+	  login_redirect_uri: process.env.GOOGLE_CALLBACK_URL_FOR_LOGIN,
+    client_id: process.env.GOOGLE_CLIENT_ID,
+	});
 });
 
 // 2. Rendering email verification page, in this page your can verify email
@@ -81,6 +88,10 @@ router.get("/reset/:id/:token", (req, res)=>{
 // 5. Rendering change password form
 router.get("/change-password", (req, res)=>{
   res.render("change-password");
+});
+
+router.get("/redirect-to-profile-page", (req, res)=>{
+  res.render("redirect-to-profile-page");
 });
 
 module.exports = router;

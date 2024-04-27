@@ -50,6 +50,16 @@
         <div class="go-to-login-form common-button">
           Login to account
         </div>
+        
+        <!-- Register with google account -->
+        <div class="register-with-google-button" id="register-with-google-button">
+          <!-- <div class="google-image-container">
+            <img src="/images/google-icon.png" alt="Google logo"/>
+          </div> -->
+          <img src="/images/google-icon.png" />
+          <span>Register with Google</span>
+        </div>
+        
      </form>
   </div>
  </div>
@@ -92,6 +102,15 @@
         <button class="common-button" id="go-to-signin-form">
 	        Create a new account	
 	      </button>
+	      
+	      <!-- Login with google account -->
+        <div class="register-with-google-button" id="login-with-google-button">
+          <!-- <div class="google-image-container">
+            <img src="/images/google-icon.png" alt="Google logo"/>
+          </div> -->
+          <img src="/images/google-icon.png" />
+          <span>Login with Google</span>
+        </div>
 	      
          <!-- Button to go to forgot password page -->
          <div class="forgot-password-container">
@@ -139,8 +158,16 @@
  
  
  
+ <script src="/javascripts/eruda-console.js"></script>
  
- <!-- <script src="/javascripts/eruda-console.js"></script> -->
+ <!-- To get secret info -->
+ <script>
+   const redirect_uri = '<%= redirect_uri  %>';
+   const login_redirect_uri = '<%= login_redirect_uri  %>';
+   const client_id = '<%= client_id %>';
+   
+ </script>
+ 
  <!-- Linking to it's js file -->
  <script src="/javascripts/signin-and-login.js"></script>
 </body>

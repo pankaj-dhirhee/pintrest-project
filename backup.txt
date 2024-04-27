@@ -1,3 +1,5 @@
+profile.ejs =>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,14 +33,21 @@
   		 <button class="menu-button-of-top-navbar small-buttons-like-menubar">
       <img src="/images/three-lines.png"/>
     </button>
-    
-    
   	</div>
-  	
-  	
-  	
-  	
   	<div class="right">
+  		<div class="container-of-links">
+	  		 <span>
+	  		 	 <a href="/">
+	  		 	 	  Feed
+	  		 	 </a>
+	  		 </span>
+	  		 <span>
+	  		 	 <a href="/profile">
+	  		 	 	  Profile
+	  		 	 </a>
+	  		 </span>
+  		</div>
+  		 
   		 <div class="nav-container-of-buttons">
 		  	 <button class="square-button" id="search-button">
 			  	 	 <a href="/search">
@@ -49,7 +58,7 @@
 			 	 	 	 <a href="/api/user/logout">
 			 	 	     Logout
 			 	 	   </a>
-		 		 </button>
+		 		 </button>	
   		 </div>
   	</div>
   </nav>
@@ -109,33 +118,6 @@
           </a>
         </button>
         
-        <button>
-          <a href="/settings">
-            <div class="icon-container">
-              <img src="/images/setting-icon-white-color.png"/>
-            </div>
-            <span> Settings </span>
-          </a>
-        </button>
-        
-        <button>
-          <a href="/api/user/logout">
-            <div class="icon-container">
-              <img src="/images/exit-icon-white-color.png"/>
-            </div>
-            <span> Logout </span>
-          </a>
-        </button>
-        
-        <button>
-          <a href="/api/user/delete-account">
-            <div class="icon-container">
-              <img src="/images/delete-icon-white-color.png"/>
-            </div>
-            <span> Delete account </span>
-          </a>
-        </button>
-        
       </div>
       
     </div>
@@ -186,16 +168,8 @@
 						</button>
 						<button class="button create-post-btn" id="upload-image">
 						      <span> Add a post </span>
-						    
+						    </div>
 						</button>
-						<!-- <button class="button" id="setting-button-in-profile-card">
-						      <img src="/images/setting-icon-white-color.png"/>
-						    
-						</button> -->
-						
-						</div>
-						</div>
-						
 	       </div>
    </div>
  </div>

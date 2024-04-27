@@ -2,6 +2,8 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	border: none;
+	background-color: transparent;
 }
 body{
 	color: whitesmoke;
@@ -160,6 +162,19 @@ body{
   border: 3px double pink;
   border-left: 3px solid dodgerblue;
   animation: loading 0.9s infinite linear; 
+}
+
+#setting-button-in-profile-card{
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1/1;
+  height: 30px;
+  background-color: transparent;
+}
+#setting-button-in-profile-card img{
+  height: 90%;
 }
 
 /*==========================================*/
@@ -363,8 +378,8 @@ body{
 /*-------------------------------------------*/
 @media(max-width: 629px){
 	.profile-section{
-		margin-top: 7px;
-	}
+		margin-top: 53px;
+  }
 }
 
 

@@ -23,7 +23,7 @@ router.get("/profile", disable_browser_cache, checkUserAuth, async function(req,
   let requested_user = req.user;
   
 	const user = await userModel.findOne({
-		 username: requested_user.username,
+		 email: requested_user.email,
 	})
 	.populate("posts").populate("boards");
 	
@@ -113,7 +113,7 @@ router.get('/preview/:image_url', checkUserAuth, async (req, res)=>{
 	});
 	// Getting data of logged in user
 	let user = await userModel.findOne({
-		 username: req.user.username
+		 email: req.user.email
 	});
 	// Getting comment data according to post id
 	let comment = await commentModel.find({
@@ -148,8 +148,9 @@ router.post("/upload/:board_name", checkUserAuth, upload.single("file"), async f
 	}
 	// Getting data of logged in user
 	const user = await userModel.findOne({
-		 username: req.user.username
+		 email: req.user.email
 	});
+	console.log(`User of uploading image =:::::: ${user}`)
 	// creating data so we can save it to post model
 	const post = await postModel.create({
 		 boardName: boardName,
@@ -174,7 +175,7 @@ router.post("/upload/:board_name", checkUserAuth, upload.single("file"), async f
 router.post('/fileupload/:imgurl', checkUserAuth, upload.single("image"), async function(req, res, next){
 	// Getting data of logged in user
 	const user = await userModel.findOne({
-		username: req.user.username
+		email: req.user.email
 	});
 	let imageUrl = req.params.imgurl;
 	
@@ -210,7 +211,7 @@ router.get('/deleteimage/:imageurl/:boardName', checkUserAuth, async (req, res)=
 	
 	// Getting data of logged in user
 	const user = await userModel.findOne({
-		 username: req.user.username,
+		 email: req.user.email
 	});
 	
 	// Deleting that post from db
@@ -250,7 +251,7 @@ router.get('/deleteimage/:imageurl/:boardName', checkUserAuth, async (req, res)=
 router.get('/show/:board_name', checkUserAuth, async (req, res, next)=>{
 	// Getting data of logged in user
 	const user = await userModel.findOne({
-		 username: req.user.username,
+		 email: req.user.email,
 	});
 	let boardName = req.params.board_name;
 	res.render("imgshow", {user, boardName});

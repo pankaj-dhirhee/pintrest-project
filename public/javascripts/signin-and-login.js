@@ -320,3 +320,92 @@ function handleBackButton(){
   	}
 };
 //=============================================//
+
+
+
+
+// Login with google side
+function select(name){
+  let element = document.querySelector(`${name}`)
+  return(element)
+};
+function selectAll(name){
+  let element = document.querySelectorAll(`${name}`)
+  return(element)
+};
+
+
+
+const google_btn = select("#register-with-google-button");
+
+google_btn.addEventListener("click", getGoogleOAuthURL);
+
+
+
+
+async function getGoogleOAuthURL(){
+ const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+ 
+	
+ 
+ 
+ 
+ 
+ const options = {
+   redirect_uri: redirect_uri,
+   client_id: client_id,
+   access_type: 'offline',
+   response_type: 'code',
+   prompt: 'consent',
+   scope: [
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email'
+   ].join(" ")
+ };
+ 
+ console.log(`Options: ${ JSON.stringify(options, null, 2) }`);
+ // console.log(`Options: ${options}`);
+ 
+ const qs = new URLSearchParams(options);
+ 
+ console.log(`qs: ${qs}`);
+ console.log("`${rootUrl}?${qs.toString()}`: " + `${rootUrl}?${qs.toString()}`)
+ 
+ 
+ return location.href = `${rootUrl}?${qs.toString()}`;
+  
+};
+
+
+const login_with_google_btn = select("#login-with-google-button");
+
+login_with_google_btn.addEventListener("click", async () => {
+   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+ 
+  
+ 
+ 
+  console.log(`login_redirect_uri ${login_redirect_uri}`) 
+ 
+ const options = {
+   redirect_uri: login_redirect_uri,
+   client_id: client_id,
+   access_type: 'offline',
+   response_type: 'code',
+   prompt: 'consent',
+   scope: [
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email'
+   ].join(" ")
+ };
+ 
+ console.log(`Options: ${ JSON.stringify(options, null, 2) }`);
+ // console.log(`Options: ${options}`);
+ 
+ const qs = new URLSearchParams(options);
+ 
+ console.log(`qs: ${qs}`);
+ 
+ return location.href = `${rootUrl}?${qs.toString()}`;
+  
+});

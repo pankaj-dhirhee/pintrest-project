@@ -45,7 +45,7 @@ router.get('/show/:limit/:page/:skip_decrement/:board_name', checkUserAuth, asyn
 	
 	// Getting data of logged in user
 	const user = await userModel.findOne({
-		 username: req.user.username,
+		 email: req.user.email,
 	});
 	
 	let imagesData = "";
@@ -93,7 +93,7 @@ router.get('/getcomments/:limit/:page/:postId', checkUserAuth, async (req, res) 
 	let skip = (page - 1) * limit;
 	
   const user = await userModel.findOne({
-		username: req.user.username,
+		email: req.user.email,
 	});
 	let comment = await commentModel.find({
 		postId: req.params.postId,
